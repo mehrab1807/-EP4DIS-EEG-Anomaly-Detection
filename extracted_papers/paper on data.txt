@@ -1,0 +1,1287 @@
+Articles
+https:/ / doi.org/10.1038/s41593-021-00901-w1Department of Biomedical Engineering, Johns Hopkins University, Baltimore, MD, USA. 2Institute for Computational Medicine, Johns Hopkins University, 
+Baltimore, MD, USA. 3Epilepsy Center, Cleveland Clinic, Cleveland, OH, USA. 4Department of Neurosurgery, University of Miami Miller School of Medicine, 
+Miami, FL, USA. 5Department of Neurology, University of Miami Miller School of Medicine, Miami, FL, USA. 6Neurology, University of Maryland Medical 
+Center, Baltimore, MD, USA. 7Neurology, Johns Hopkins Hospital, Baltimore, MD, USA. 8Surgical Neurology Branch, National Institute of Neurological 
+Disorders and Stroke, National Institutes of Health, Bethesda, MD, USA. 9Neurosurgery and Epilepsy Center, University of Pittsburgh Medical Center, 
+Pittsburgh, PA, USA. 10These authors jointly supervised this work: Jorge Gonzalez-Martinez, Sridevi V. Sarma. ✉e-mail: adam2392@gmail.comMore than 15 million patients with epilepsy worldwide and 
+1 million in the United States suffer from drug-resistant epilepsy (DRE)
+1,2. DRE is defined as continued seizures 
+despite two trials of appropriately chosen anti-epileptic drugs3. 
+Patients with DRE have an increased risk of sudden death and are frequently hospitalized and burdened by epilepsy-related disabili
+-
+ties. Moreover, their cost of care is a substantial contributor to the US$16 billion dollars spent annually in the United States treating patients with epilepsy
+4. Approximately 50% of patients with DRE 
+have focal DRE, where specific brain region(s), termed the epilep -
+togenic zone (EZ), is necessary and sufficient for initiating seizures and whose removal (or disconnection) results in the complete aboli
+-
+tion of seizures5,6. The EZ encompasses the clinically identified SOZ 
+and early propagation zone. The brain regions associated with the SOZ demonstrate the earliest electrophysiological changes during 
+a seizure event and generally precede the clinical onset of seizures. 
+Moreover, the early propagation zone regions are involved at the time of the earliest clinical (semiological) manifestations during a seizure event. Successful surgical and neuromodulatory treatments 
+can stop seizures altogether or allow them to be controlled with 
+medications
+7, but outcomes for both treatments critically depend 
+on accurate localization of the SOZ.
+Localizing the SOZ also relies on the accurate placement of elec -
+trodes such that they cover the EZ and the ability to identify abnor -
+malities in the intracranial EEG (iEEG) channels that may correlate to the SOZ with the naked eye. Unfortunately, even the most expe
+-
+rienced clinicians are challenged because epilepsy is fundamentally a network disease, which cannot be entirely defined by the cur
+-
+rent methods of localization. Abnormal connections across sev -
+eral channels may constitute a more effective marker of the SOZ8. Localization therefore lends itself to a data-driven network-based computational approach, and several EEG algorithms have been proposed to localize the SOZ from recordings. Many entail inves
+-
+tigations of the spectral power in each iEEG channel, including high-frequency oscillations (HFOs)
+9, but these approaches do not 
+consider network properties of the brain because they treat each EEG channel independently. Others have proposed graph-based 
+analyses of iEEG data
+10–15, but these approaches fail to identify inter -
+nal network properties that cause seizures to occur in the first place.
+We propose an EEG marker of the SOZ, which we call neural fra -
+gility (conceptually described in Fig. 1 and quantitatively in Fig. 2). 
+To create the fragility marker, we first built a personalized dynamic model of the brain network from observed iEEG signals (Fig. 2, top 
+row). The generative model can accurately reconstruct iEEG record
+-
+ings from the patient16,17. We then calculated neural fragility, which 
+measures the degree to which network nodes are imbalanced; that 
+is, small impulse perturbations on the network and thus can trigger 
+seizures18 (Fig. 1). To evaluate neural fragility as a marker for the 
+SOZ, we conducted a retrospective study using iEEG data from 91 
+patients treated across 5 epilepsy centers: Johns Hopkins Hospital 
+(JHH), the National Institutes of Health (NIH), Cleveland Clinic 
+(CClinic), the University of Maryland Medical Center (UMMC) and the University of Miami Hospital and Clinics (UMHC). In the study population, all patients with DRE underwent invasive iEEG moni
+-
+toring followed by surgical resection or laser ablation of the SOZ (44 success and 47 failure outcomes). We demonstrate that neural fragility is higher (lower) in electrode contacts within clinically 
+annotated SOZs for patients with a successful (failed) outcome. In 
+addition, we compared fragility of iEEG nodes to 6 frequency-based and 14 graph theoretic features in a 10-fold nested cross-validation Neural fragility as an EEG marker of the seizure 
+onset zone
+Adam Li   1,2 ✉, Chester Huynh1,2, Zachary Fitzgerald3, Iahn Cajigas   4, Damian Brusko4, 
+Jonathan Jagid   4, Angel O. Claudio5, Andres M. Kanner5, Jennifer Hopp6, Stephanie Chen6, 
+Jennifer Haagensen6, Emily Johnson7, William Anderson7, Nathan Crone   2,7, Sara Inati   8, 
+Kareem A. Zaghloul   8, Juan Bulacio3, Jorge Gonzalez-Martinez9,10 and Sridevi V. Sarma1,2,10
+Over 15 million patients with epilepsy worldwide do not respond to drugs. Successful surgical treatment requires complete 
+removal or disconnection of the seizure onset zone (SOZ), brain region(s) where seizures originate. Unfortunately, surgical 
+success rates vary between 30 and 70% because no clinically validated biological marker of the SOZ exists. We develop and 
+retrospectively validate a new electroencephalogram (EEG) marker—neural fragility—in a retrospective analysis of 91 patients by using neural fragility of the annotated SOZ as a metric to predict surgical outcomes. Fragility predicts 43 out of 47 surgical 
+failures, with an overall prediction accuracy of 76% compared with the accuracy of clinicians at 48% (successful outcomes). In 
+failed outcomes, we identify fragile regions that were untreated. When compared to 20 EEG features proposed as SOZ markers, fragility outperformed in predictive power and interpretability, which suggests neural fragility as an EEG biomarker of the SOZ.
+NAturE NEur OSCIENCE | VOL 24 | OCTOBEr 2021 | 1465–1474 | www.nature.com/natureneuroscience 1465
+Articles NaTUrE NEUrOScIENcE(CV) experiment. Neural fragility has an area under the curve 
+(AUC) discrimination score of 0.88 ± 0.064, which is 13% better 
+than the next best feature. In addition, it has a high degree of inter -
+pretability, which we demonstrate by computing an interpretability ratio. Together, the results suggest that spatiotemporal heatmaps of neural fragility can be a robust iEEG biomarker of the SOZ and can 
+be seamlessly integrated into the clinical workflow.
+results
+There is no clinically validated biomarker of the SOZ, yet it is an 
+important component for the localization of the underlying EZ19. 
+This presents a serious challenge for clinicians to accurately localize the SOZ and has led to surgical success rates to vary between 30 and 
+70% despite large brain regions being removed
+20. With no biomarker 
+available, clinicians conduct extensive evaluations with neuroimag -
+ing, clinical testing and visual inspection of EEG recordings (Fig. 3). 
+When noninvasive tests are inconclusive, patients undergo intracra -
+nial monitoring, whereby iEEG electrodes are implanted into the brain. iEEG provides high temporal resolution data for clinicians to visually detect abnormal activity, such as spikes and high-frequency 
+bursts, in between seizures (interictal) and during seizures (ictal) 
+(see an outline in Supplementary Figs. 1 and 2). Specifically, clini
+-
+cians attempt to identify electrodes involved in the SOZ and early spread
+21. Unless the region overlaps with the eloquent cortex, surgi -
+cal resection is then performed on the basis of this hypothesis.
+We analyzed iEEG data from every patient using fragility and 20 
+other baseline features, which resulted in spatiotemporal heatmaps for every feature. The baseline features included spectral power in various frequency bands (for example, delta band 1–4 Hz) and spe
+-
+cific graph measures of bivariate correlation measures (for exam -
+ple, eigenvector centrality and degree of correlation and coherence matrices), which have been previously reported in the literature to correlate to the SOZ
+10–13. We evaluated each feature by predicting 
+surgical outcomes (process outlined in Extended Data Fig. 1).
+Description of neural fragility. Neural fragility is a paradigm shift in the EEG analytics space. It is a concept based on the conjecture that focal seizures arise from a few fragile nodes (that is, the SOZ), which renders the cortical epileptic network on the brink of instabil
+-
+ity. When one observes iEEG data during interictal, or preictal, peri -
+ods, activity recorded from each channel appears to hover around a baseline value (Fig. 1, left). If the network is ‘balanced’ , then it will transiently respond to an impulse but always returns to a baseline 
+value (Fig. 2a,b). In contrast, when one observes iEEG data during 
+a seizure event, activity grows in amplitude, oscillates and spreads in the brain when the network is perturbed (Fig. 1, right). This is a consequence of an ‘unbalanced’ network that does not return to a 
+baseline value (Fig. 2c). From a dynamic systems perspective, the 
+iEEG network has switched from a stable (non-seizure) to an unsta
+-
+ble (seizure) network.
+Biologically, imbalance due to perturbations between excitatory 
+and inhibitory connections of a neural network can occur through any number of mechanisms, such as elevated glutamate
+22,23, a 
+genetic disorder affecting synaptic inhibition24, decreased GABA25, 
+E IE IBalanced EEG network Unbalanced EEG network
+Fig. 1 | Intuition of neural fragility—unbalanced and balanced networks. T op: iEEG traces in between seizures (left) and during a seizure (right). Bottom: 
+network schematic showing changes in connectivity (right) in a fragile node that causes seizures. This qualitatively describes the concept of neural fragility in the context of a dynamic iEEG network, with nodes representing excitatory (E) and inhibitory (I) populations of neurons. From a dynamic systems point of view, such imbalance arises from a few fragile nodes causing instability of the network in the form of overexcitation, or underinhibition. We define fragility of a network node to be the minimum energy perturbation applied to the weights of the node on its neighbors before rendering the network unstable
+16,18. In systems theory, stable systems return to a baseline condition when a node is perturbed. In contrast, unstable systems can oscillate and 
+grow when a node is perturbed. In the context of epilepsy, a fragile node is one that requires a smaller perturbation to lead to seizure activity. Fragility theory can be modeled in the context of linear dynamical systems: x(t + 1) = Ax(t). Perturbing the columns of the A matrix will alter dynamic connections of a particular node (that is, that column) on its neighbors, resulting in an imbalanced network.
+NAturE NEur OSCIENCE | VOL 24 | OCTOBEr 2021 | 1465–1474 | www.nature.com/natureneuroscience 1466
+Articles NaTUrE NEUrOScIENcEinclusion of axo-axonic gap junctions26, loss of inhibitory chandelier 
+cells27 or axonal sprouting from layer V excitatory pyramidal cells28. 
+This imbalance within a neural network may lead to functional instability, whereby impulses at certain nodes lead to recurring sei -
+zures. While iEEG cannot distinguish between excitatory and inhib -
+itory neuronal populations, the concept of imbalance causing the 
+E I–1 –1 –1–13= = = 
+–3EEG model
+Two-node
+network E I3
+–3 + 2 –3 + 2–1 + 1 –1 + 23
+/uni2206Norm = |/uni2206| 0 58 =
+Fragility of node I
+xE(t)xI(t)xE(t)xI(t) xI(t + 1)
+xE(t + 1)xI(t + 1)
+xE(t + 1)x(t + 1) = Ax(t) x(t + 1) = (A + /uni22061 )x(t) x(t + 1) = (A + /uni22062 )x(t)
+xE(t)xE(t)xI(t) xI(t)
+Time AU Time AU Time AUSeizure!a b c
+EEG
+responses to
+impulse at
+node IE I–1
+–13
+–3 xE(t)xI(t) –1+ 1
+–13
+–3+ 2xI(t + 1)
+xE(t + 1) xE(t)xI(t) –1+ 2
+–13
+–3+ 2
+Fig. 2 | Neural fragility in a two-node network. T o build quantitative intuition on what neural fragility means in the context of a dynamic iEEG system, we 
+construct a two-node EEG network example with excitatory (E) and inhibitory (I) populations of neurons. For a qualitative description, see Fig. 1. xI(t) and 
+xE(t) are the EEG activity of the I and E neuronal population, respectively. A is a linear network model quantifying how each population affects the rest 
+over time. Δ (that is, the fragility) is the amount of change added to connections of a node. The fragility of the node is quantified as the minimal amount of change necessary to cause seizure-like phenomena. a, A stable network without a perturbation added leads to network responses due to an impulse at node I, resulting in a transient that reverts to baseline. b, A perturbation is added, but the network is still stable with a slightly larger transient when an impulse is applied to node I. c, Enough of a perturbation is added such that the network becomes unstable; an impulse applied at node I results in oscillatory activity that does not quickly return to baseline. The magnitude of the Δ added in c is the fragility of node I (that is, 
+√
+8).
+Confidence in
+hypothesized SOZ
+predicts outcome
+P(success)Structured
+representation of
+the SOZ and SOZC
+...
+...
+Ensemble of decision
+trees...
+...Spatiotemporal
+iEEG mapsPrior clinical
+knowledge and
+concordance of dataConsensus to
+determine
+confidence in SOZ
+Consensus to
+determine confidence
+in SOZSurgery
+MRI
+SPECTPET scan DTI
+MEG Scalp EEGTimeElectrodes
+(SOZC and SOZ)
+Compare
+(SOZ sufficient?)
+EngelCCSpatiotemporal
+feature maps split by
+hypothesized SOZ
+1 2
+3 4Healthy brainEZ region
+Lesiona bAlgorithmic
+evaluationClinical
+workflow01
+SuccessFailureP(success)Stratify predictions
+based on clinical
+outcomes
+SOZ
+SOZC
+EEG onset
+Fig. 3 | CC and our experimental paradigm. a, Schematic of the difficulty of different epilepsy etiologies that might arise in patients with DrE. Since 
+there is no biomarker for the EZ and it is never directly observed, the network mechanisms that cause seizures are complex. Clinical case complexity ordered by increasing localization difficulty that are present in the dataset: lesional (1), focal temporal (2), focal extratemporal (3) and multifocal (4). These four categories simplify the possible epilepsy presentations, but provide a broad categorization of simple to complex cases observed in the clinic. b, Schematic of our experimental design. Bottom: a simplified analogous workflow that clinicians take to evaluate their confidence in a proposed SOZ localization resulting in a surgery. During invasive monitoring, clinicians identify the SOZ from iEEG patterns (for example, spiking or rhythmic activity). When possible, subsequent surgical resection or laser ablation, generally including the SOZ along with a variable extent of additional tissue, is performed. Post-operatively, patients are followed for 12+ months and categorized as either success or failure as defined in the ‘Dataset collection’ section in Methods, resulting in an Engel class or ILAE score. T op: we evaluate various representations of iEEG data in the form of spatiotemporal heatmaps, creating a partitioned summary of the clinically annotated SOZ around seizure onset, feed them into a rF classifier and compute a probability of success (that is, a confidence score) in the clinically hypothesized SOZ. The probability was then compared with the actual outcome of patients. These predictions can then be stratified based on clinical covariates, such as the actual surgical outcome. For a feature to be an accurate representation of the underlying epileptic phenomena, the following assumptions are made. As a result of a seizure-free outcome, assume that the clinically hypothesized SOZ was sufficient and the probability of success has a high value. In contrast, if seizures continue, then the SOZ was not sufficient and the probability should have a low value.
+NAturE NEur OSCIENCE | VOL 24 | OCTOBEr 2021 | 1465–1474 | www.nature.com/natureneuroscience 1467
+Articles NaTUrE NEUrOScIENcEnetwork to be on the brink of instability can be modeled by neural 
+fragility at the iEEG network level.
+To demonstrate how fragility is computed from a dynami -
+cal model, we consider a two-node network as shown in Fig. 2.  
+In Fig. 2a, a stable network is shown where excitation and inhibition are balanced. The network model is provided in the top row and takes a linear form, x(t + 1) = Ax(t), where t is a time index (typi
+-
+cally 1 ms). When the inhibitory node is stimulated by an impulse, 
+both nodes transiently respond and the EEG returns to baseline (Fig. 2, bottom row). In Fig. 2b , the connections of the inhibitory 
+node are slightly perturbed in a direction that makes the inhibitory node less inhibitory (see changes to its connectivity to the excitatory node). Now, when the inhibitory node is stimulated by an impulse, the responses from each node have a larger transient response but 
+still return to baseline. Finally, in Fig. 2c, the connections of the 
+inhibitory node are further perturbed in a direction that makes 
+the inhibitory node less inhibitory. Now, when the inhibitory node is stimulated by an impulse, the responses oscillate, which dem
+-
+onstrates that the network has gone unstable. The fragility of the inhibitory node is therefore quantified as √
+8, which is the norm of 
+the perturbation vector applied to the first column of A. Our con -
+jecture is that small changes in connection strengths at SOZ nodes cause an imbalance in connectivity between nodes in the network, thereby resulting in susceptible seizures.
+To test our conjecture, we estimate a linear time-varying model 
+with a sliding window of A matrices that characterize a linear dynamic system as follows: x(t + 1) = Ax(t) (refs. 
+16,17). This is a gen -
+erative model representing the linear dynamics between iEEG chan -
+nels within a small window of time. Each A matrix is estimated from data via a least-squares method. We have previously shown that this linear approximation is a valid model of the data
+17. From this 
+model, we computed the minimum two-norm perturbation matrix, 
+{Δ}N
+j=1, over all N channels16 (Extended Data Fig. 1). The two-norm 
+of each perturbation matrix represents the neural fragility for that channel. Computing the fragility now across sequentially estimated 
+A matrices results in a spatiotemporal neural fragility heatmap. For 
+a full description of neural fragility, see ‘Neural fragility of the iEEG network’ in Methods.
+Fragility highlights the clinical SOZ in patients with successful 
+outcomes. To qualitatively assess the usefulness of fragility in local
+-
+izing electrodes of interest, we first looked at specific examples of patients with varying outcomes and epilepsy etiologies (Fig. 3). We used fragility to analyze and demonstrate how it may provide addi
+-
+tional information for SOZ localization. In Fig. 4, we show three patients with differing surgical treatments, outcomes, Engel class and clinical complexity (CC) along with their fragility heatmaps 
+and corresponding raw iEEG data (for full clinical definitions, see 
+Supplementary Table 1).
+In Fig. 4a, the red electrode labels on the y axis correspond to the 
+clinical SOZ electrodes (the red electrodes are typically a subset of 
+the resected region). It shows the period 10 s before and after elec
+-
+trographic seizure onset (black dashed line). In patient 1, the fra -
+gility heatmap agreed with clinical visual EEG analysis, identifying 
+the SOZ, which was surgically resected and led to the patient being seizure-free. The clinical SOZ has high fragility, even before seizure 
+onset, which is not visible in the raw EEG data. The heatmap for 
+patient 1 also captured the propagation of seizure activity (Extended Data Fig. 2). This patient had a successful surgery outcome, and so we can assume that the resected tissue likely contained the epileptic 
+regions; that is, it is likely the clinicians correctly localized the EZ. 
+When viewing the raw EEG data in Fig. 4b (top), patient 1 has iEEG signatures that are readily visible around seizure EEG onset. We see high-frequency and synchronized spiking activity at onset that occurs in electrodes that clinicians annotated as the SOZ, which 
+correspond to the most fragile electrodes at onset. In addition, the fragility heatmap captured the onset (the ATT and AD electrodes) 
+and early spread of the seizure (the PD electrodes). Moreover, ATT1 
+(anterior temporal lobe area) shows high fragility during the entire 
+period before seizure onset (Fig. 4). This area was not identified with either scalp EEG or noninvasive neuroimaging.
+Fragility of regions outside the SOZ in patients with failed out
+-
+comes. In Fig. 4, patients 26 and 40 both show regions with high fra -
+gility that were not in the clinically annotated SOZ (or the resected 
+region), and both had recurrent seizures after surgery. From seizure onset, many electrodes in both patients exhibited the clinically rel
+-
+evant EEG signatures, such as spiking and fast-wave activity29. In 
+the raw EEG data, one can see synchronized spikes and spike-waves, but ultimately the epileptic regions were not successfully resected. 
+Visual analysis of the EEG data was insufficient for patients 26 and 
+40, which ultimately led to insufficient localizations and failed sur
+-
+gical outcomes.
+Patient 26 had a resection performed in the right anterior tempo -
+ral lobe region where clinicians identified the SOZ (using the RAD, RHD and RTG40/48 electrodes). However, the ABT (anterior basal temporal lobe), PBT (posterior basal temporal lobe) and RTG29-39 
+(mesial temporal lobe) electrodes were highly fragile compared to 
+the clinical SOZ, but were not annotated as the SOZ. In the raw EEG data shown in Fig. 4b , it is not apparent that these electrodes 
+would be part of the SOZ. Patient 40 had laser ablation performed 
+on the electrode region associated with Q2, which was not fragile. 
+However, the X′ (posterior-cingulate), U′ (posterior-insula) and N′/M′/F′ (superior frontal gyrus) electrodes were all fragile com
+-
+pared with Q2, which recorded from a lesion in the right periven -
+tricular nodule. Based on these heatmaps, the fragile regions could be hypothesized to be part of the SOZ and possibly candidates 
+ 
+for resection.
+Fragility outperforms other features in predicting outcomes. 
+To test the validity of neural fragility and the baseline features as 
+SOZ markers, we investigated the ability of each feature to predict surgical outcomes of patients when stratified by the set of SOZ contacts and the rest, which we denote as the SOZ complement 
+(SOZ
+C; for a distribution of patient outcomes, see Supplementary 
+Fig. 3 and Table 1). Neural fragility in the SOZ was significantly 
+higher than the SOZC in patients with successful outcomes com -
+pared with patients with failed outcomes (P(success) = 3.326 × 10−70, 
+P(fail) = 0.355; Extended Data Fig. 3). Patient 1 has higher neural 
+fragility in the SOZ compared with patients 26 and 40 (Extended 
+Data Fig. 4). This effect was also seen when pooling patients 
+across all centers, where neural fragility was either higher before the seizure onset or had a marked increase starting at seizure onset (Extended Data Fig. 5). To evaluate this at a single-subject level, we 
+trained a structured random forest (RF) model for each feature that 
+takes in a partitioned spatiotemporal heatmap based on the clini
+-
+cally annotated SOZ and generates a probability of success, which is a confidence score in the clinical hypothesis (for full details, see Methods). We tested the model of each feature on a held-out dataset 
+by applying a threshold to the output of the model and computing 
+a receiver operating characteristic (ROC) curve. The ROC curve plots true-positive rates versus false-positive rates and the AUC, a measure of predictive power of the feature. We also computed the 
+precision (PR) or positive predictive value (PPV) for each feature, 
+which is the proportion of predicted successful or ‘positive’ results that are true positives (actual successful surgeries). In addition, we computed the negative predictive value (NPV). The larger the AUC, PPV or NPV is for a feature, the more predictive it is and therefore 
+more valid as an iEEG marker of the SOZ.
+Since implantation for each patient involves a varying num
+-
+ber of electrodes, we summarized the distribution of each fea -
+ture of the SOZ and SOZC electrodes into quantile statistics over 
+NAturE NEur OSCIENCE | VOL 24 | OCTOBEr 2021 | 1465–1474 | www.nature.com/natureneuroscience 1468
+Articles NaTUrE NEUrOScIENcEtime (see ‘Experimental design’ in Methods). As an input to 
+the RF models, we computed the quantile statistics over time of  
+the SOZ and SOZC sets for each patient and each feature, which 
+were input into a machine-learning RF model. RF models are attractive because they are nonparametric, interpretable (they are 
+a set of decision trees performing a consensus procedure) and 
+able to handle higher dimensional data better than other models, such as logistic regression
+30. As an output of the trained RF model, 
+each heatmap is mapped to a probability that the outcome will be a success. An RF model was tuned for each feature through tenfold 
+CV (see ‘Experimental design’ in Methods), thereby resulting in a 
+ uniform benchmark against neural fragility on the same set of 
+patients. Similar to neural fragility, all benchmark features were com -
+puted as heatmaps (Supplementary Fig. 4). The high-gamma fre -
+quency band feature encompasses what some would consider HFOs  
+(that is, 90–300 Hz).
+In terms of the AUC (which measures discrimination), neu -
+ral fragility performed the best (Fig. 5a). Compared with the top three leading baseline features, neural fragility outperformed the beta-band (15–30 Hz) power by more than 13%. The AUC of fra
+-
+gility was the highest, with a value of 0.88 ± 0.064 compared with 
+the next best representation, the beta frequency band, with a value 
+2.5 5.0 7.5 10.0 12.5 15.0 17.5 20.0ABT1
+ABT2
+RAD1
+RAD2
+RAD3
+RAD4
+RAD5
+RAD6
+RAD7
+RHD1
+RHD2
+RHD3
+RHD4
+RHD5
+RHD6
+RHD7
+RHD8
+RHD9
+RTG29
+RTG30
+RTG31
+RTG32
+RTG40
+RTG48ABT1
+ABT2
+RAD1
+RAD2
+RAD3
+RAD4
+RAD5
+RAD6
+RAD7
+RHD1RHD2
+RHD3
+RHD4
+RHD5RHD6
+RHD7
+RHD8
+RHD9
+RTG29RTG30RTG31RTG32RTG40RTG48
+Q2
+X'1
+U'1
+U'2U'3
+F'2
+M'4M'5
+N'4
+N'5
+N'6ATT1
+ATT2
+AD1
+AD2
+AD3
+AD4PD1PD2PD3
+PD4
+MLT1
+MLT2
+MLT3MLT4Seizure onse ta b
+2.5 5.0 7.5 10.0 12.5 15.0 17.5 20.0Q2
+X'1
+U'1
+F'2
+M'4
+M'5
+N'4
+N'5
+N'62.5 5.0 7.5 10.0 12.5 15.0 17.5 20.0ATT1
+ATT2
+AD1
+AD2
+AD3
+AD4
+PD1
+PD2
+PD3
+PD4
+MLT1
+MLT2
+MLT3
+MLT4Patient 01 Patient 26 Patient 400 0.2 0.4Fragility metric
+0.6 0.8 1.0
+Q
+BE/uni2032B/uni2032F/uni2032T/uni2032U/uni2032P/uni2032M/uni2032N/uni2032
+O/uni2032
+C/uni2032R/uni2032X/uni2032PDADPST AST
+ATTSLTIFSFG
+MLT
+PLTILT
+RTG
+PBTMBT ABT
+Fig. 4 | Fragility heatmaps and corresponding raw EEG traces of patients with successful or failed outcomes. a, From top to bottom: patient 1 (success, 
+treated at the NIH, CC1, Engel class 1); patient 26 (failure, treated at JHH, CC3, Engel class 4); and patient 40 (failure, treated at CClinic, CC4, Engel class 3). The color scale represents the amplitude of the normalized fragility metric, with values closer to 1 denoting fragile regions and those closer to 0 denoting relatively stable regions. Left: overlaid average neural fragility value of each electrode in the window of analysis we used. Black dark squares represent a depth electrode that is not shown easily on the brain. Black lines outline where the clinicians labeled the SOZ. Note that in patient 26, rAD and rHD electrodes are denoted by the squares with the color showing the average over the entire electrode. right: clinically annotated heatmaps of the implanted ECoG/SEEG electrodes, with red labels on the y axis denoting SOZ contacts. The red contacts are also part of the surgical resection area in these patients. Data are shown in the turbo color map. Best seen if viewed in color. b, Corresponding raw EEG data for each patient with electrodes on the y axis and time on the x axis, with the dashed black lines denoting seizure onset. Each shows 10 s before seizure onset marked by epileptologists and 10 s after. EEG was set at a monopolar reference with line noise filtered out. Not all electrodes are visualized in the brain plot because channels that were deemed noisy or in white matter were not included in the analysis (for more information, see Methods). In addition, only a select set of channels are chosen for the heatmap and time series for sake of visualization on a page and to demonstrate select channels that demonstrated different fragility values. Each EEG snapshot is shown at a fixed scale for that specific snapshot that was best for visualization (ranging from 200 µV to 2,000 µV).
+NAturE NEur OSCIENCE | VOL 24 | OCTOBEr 2021 | 1465–1474 | www.nature.com/natureneuroscience 1469
+Articles NaTUrE NEUrOScIENcEof 0.82 ± 0.040. From the ROC and PR curves, we observed that  
+fragility consistently had a higher sensitivity for the same 
+false-positive rate compared with the 20 other feature represen -
+tations (Extended Data Fig. 6). In terms of effect size, neural fra -
+gility showed improvement over the beta frequency band, with a large effect size of 0.97 Cohen’s D and 9- to 10-fold improvement in the AUC (paired Wilcoxon rank-sum P = 0.027; Extended Data 
+Fig. 6). In terms of PR (which measures PPV), neural fragility 
+also performed the best (Fig. 5b). In terms of average precision, which weighs the predictive power in terms of the total number of patients, neural fragility also obtained an average precision of 
+0.83 ± 0.076, which is >5% better than the next best feature. In addi
+-
+tion, compared with the clinical surgical success rate of 47%, fragil -
+ity had a 76 ± 6% accuracy in predicting surgical outcome, a PPV 
+of 0.903 ± 0.103 and a NPV of 0.872 ± 0.136. In terms of PR, neu -
+ral fragility showed improvement over the beta-band power with a medium effect size of 0.57 Cohen’s D and 8–10-fold improvement 
+in the PR (P = 0.08).
+When we compared the success probabilities predicted  
+by the models between surgical outcomes, we observed that neu -
+ral fragility separated success and failed outcomes the most, with 
+a Cohen’s D of 1.507 (95% confidence interval of 1.233–1.763)  
+(Fig. 5c) and P = 6.748 × 10−31 (Fig. 5d). In addition to having good 
+discrimination, we computed how well calibrated the model is; that is, having the success probabilities values reflect true risk strata 
+ 
+in the patient population. For example, a perfectly calibrated model would have a 20% confidence in a set of patients with exactly 
+ 
+20% success outcomes. We quantified how well calibrated the suc -
+cess probability distributions are over the held-out test set and found that the RF model trained on neural fragility produces well-calibrated predictions (Extended Data Fig. 6). The Brier-loss 
+(a measure of calibration, with a value of 0 being perfect) was 
+FragilityBetaAlpha ThetaGammaDelta
+Theta-coh-centHigh gamma
+Gamma-coh-centAlpha-coh-cent Beta-coh-centDelta-coh-centCorr-cent
+Beta-coh-deg
+High gamma-coh-centTheta-coh-degGamma-coh-degAlpha-coh-degCorr-deg
+Delta-coh-deg
+High gamma-coh-deg
+Feature name00.51.01.52.02.5Cohen's D
+(CS of S minus F)*Effect size difference between
+success vs failed outcomes on test set
+FragilityBeta
+Theta-coh-centThetaAlphaGammaDelta
+Gamma-coh-centHigh gammaAlpha-coh-centBeta-coh-centDelta-coh-centCorr-cent
+High gamma-coh-centBeta-coh-degTheta-coh-degAlpha-coh-degGamma-coh-degCorr-deg
+Delta-coh-deg
+High gamma-coh-deg
+Feature name10−2810−2410−2010−1610−1210−810−4100P value
+(Mann–Whitney U-test)P value of hypothesis test between
+success vs failed outcomes on test seta b
+c d0.50.60.70.80.9AUCAUC On held-out test set
+over tenfold CV
+Average AUC (fragility)
+FragilityBeta
+Gamma-coh-centTheta-coh-centDeltaGammaTheta
+High gammaBeta-coh-centAlpha
+Alpha-coh-centCorr-cent
+High gamma-coh-centDelta-coh-centBeta-coh-degAlpha-coh-degTheta-coh-degCorr-deg
+Delta-coh-degGamma-coh-deg
+High gamma-coh-deg
+Feature
+(sorted by mean)00.30.40.50.60.70.80.9Precision
+PPVPrecision on held-out test set
+over tenfold CV
+Average precision (fragility)
+FragilityBetaAlphaGammaTheta
+Alpha-coh-centGamma-coh-centTheta-coh-centDelta
+Beta-coh-centCorr-centHigh gammaCorr-deg
+Alpha-coh-degDelta-coh-centBeta-coh-deg
+Gamma-coh-deg
+High gamma-coh-centTheta-coh-deg Delta-coh-deg
+High gamma-coh-deg
+Feature
+(sorted by mean)0Fig. 5 | A uC and average precision performance. Specific results for neural fragility are marked in red for each of the panels. a, Discrimination plot 
+(measured by AUC) shows the relative performance of benchmark feature representations compared to that achieved with neural fragility. Neural fragility 
+has a median AUC of 0.89 (boxplot summary = 0.77, 0.97, 0.83 and 0.93; min, max, first quartile and third quartile, respectively). b, A similar average-Pr curve shows the relative PPV of all features compared with fragility. Average precision is the analogous AUC for the Pr curve. Neural fragility has a median Pr of 0.82 (boxplot summary = 0.68, 0.95, 0.81 and 0.88; min, max, first quartile and third quartile, respectively). c, A summary of the Cohen’s D effect size measurements between the success (S) and failed (F) outcome distributions across all features. The effect size of neural fragility is significantly greater than that of the beta band (alpha = 0.05). Neural fragility has a median effect size of 1.51 (boxplot summary = 0.92, 2.21, 1.43 and 1.60; min, max, first quartile and third quartile, respectively). d, The corresponding P values of the effect size differences between success and failed outcomes, computed via one-sided Mann–Whitney U-test. Note that the samples in c are not shown for visual sake; data were approximately bell-curve-shaped and a box plot adequately summarized the main descriptive statistics of the distribution. cent, centrality; coh, coherence; corr, correlation; deg, degree. The asterisks indicate a statistical significance with alpha = 0.05. For boxplot summary statistics (min, max, median, first quartile and third quartile) of other features, see Supplementary T able 1.
+NAturE NEur OSCIENCE | VOL 24 | OCTOBEr 2021 | 1465–1474 | www.nature.com/natureneuroscience 1470
+Articles NaTUrE NEUrOScIENcE0.162 ± 0.036, which was a 6.7% improvement compared with the 
+next best feature.
+Fragility correlates with important clinical covariates. Neural fra -
+gility also correlated with more granular treatment outcomes and 
+CC. Successful seizure-free outcomes (Engel 1 class and ILAE 1 score) and failure seizure-recurrence outcomes (Engel 2–4 class) are 
+defined at 12+ months post-operation. In addition, we can catego
+-
+rize patients by their CC as follows: (1) lesional, (2) focal temporal, 
+(3) focal extratemporal and (4) multifocal21 (Fig. 3a). We stratified 
+the distribution of the success probabilities on the basis of the Engel class and there was a decreasing trend in success probability as the 
+Engel class increased (Fig. 6b). The effect sizes when comparing 
+against Engel 1 were 1.067 for Engel 2 (P = 4.438 × 10
+−50), 1.387 for 
+Engel 3 (P = 2.148 × 10−69) and 1.800 for Engel 4 (P = 4.476 × 10−74). 
+Although the AUC indirectly implies such a difference would exist between Engel 1 (success) and Engel 2–4 (failure), we also observed 
+that confidence decreases as the severity of the failure increases. 
+That is, patients with Engel 4 class experienced no changes in their seizures, which suggests that the true epileptic tissue was not local
+-
+ized and resected, while patients with Engel 2 class experienced some changes, which suggests that there were portions of the true epileptic tissue that may have been resected. We also compared the 
+success probability distributions with respect to the ILAE score, 
+which is another stratification of the surgical outcomes (Fig. 6c). There was a similar trend as seen for the Engel class, whereby as the ILAE score increases, the success probability decreases.
+We also analyzed the success probability with respect to the 
+epilepsy severity measured by the CC of the patient, which is a categorization of the etiology of the disease. CC is determined by what type of seizures the patient exhibits rather than the severity of the seizures after surgery (see ‘Dataset collection’ in Methods). CC is a factor that is determined before surgery and one we expect could correlate with failure rate. The higher the CC, the more dif
+-
+ficult localization is and hence more likely that seizures will recur after surgery. In Fig. 6a, we observe that patients with CC1 and CC2 (that is, lesional and temporal lobe, respectively) character
+-
+istics had a similar distribution of success probabilities (Cohen’s D = 0.020; Mann–Whitney U-test P =0.799; likelihood Q-ratio test 
+(LQRT) P = 0.76), while patients with CC3 and CC4 characteris
+-
+tics had significantly lower distributions (CC3: Cohen’s D = 0.779,  
+Mann–Whitney U-test P = 2.808 × 10−19, LQRT P = 0.00; CC4: 
+Cohen’s D = 1.138, Mann–Whitney U-test P = 7.388 × 10−26, LQRT 
+P = 0.00). This trend was not optimized directly in our discrimi -
+nation task, but it aligned with clinical outcomes. CC1 and CC2 are comparable, which agrees with current data suggesting that lesional and temporal lobe epilepsy have the highest rates of sur
+-
+gical success31,32. Patients with extratemporal (CC3) or multifocal 
+(CC4) characteristics tend to have lower success rates due to diffi -
+cult localizations; therefore, the neural fragility confidence in those  
+SOZ localizations should be low31.
+The highest values of neural fragility (that is, red zones) that dif -
+ferentiates the SOZ and SOZC contributed the most to making a 
+correct classification (Extended Data Fig. 7). In general, neural fra -
+gility was not correlated with any single frequency band (Extended Data Fig. 8). We also show how fragility heatmaps are the most interpretable over all baseline features. When comparing the con
+-
+trast between the SOZ and the SOZC of patients with successful or 
+a b c
+1 2 3 4
+CC (1–4)00.20.40.60.81.0Probability of successPredicted success probability
+stratified by CC
+1 2 3 4
+ENGEL (1–4)00.20.40.60.81.0Probability of successPredicted success probability
+stratified by ENGEL score
+1 2 3 4 5 6
+ILAE (1–6)00.20.40.60.81.0Probability of successPredicted success probability
+stratified by ILAE scoreFig. 6 | Neural fragility of patients stratified by clinical covariates. a, Distribution of success probability values per patient stratified by CC (see ‘Dataset 
+collection’ in Methods). Patients with lesional (1) or temporal lobe (2) epilepsy have similar distributions because they are generally the ‘easier’ patients to treat, whereas patients with extratemporal (3) or multifocal (4) epilepsy have lower general probabilities because they are ‘harder’ patients to treat. It is important to note that the classification experiment posed did not explicitly optimize this separation between clinical case complexities. There is a median predicted probability of success of 0.59 (boxplot summary = 0.06, 0.88, 0.31 and 0.75; min, max, first quartile and third quartile, respectively) for CC1. For CC2, CC3 and CC4, there is a median probability of success of 0.62 (boxplot summary = 0.14, 0.96, 0.40 and 0.80), 0.28 (boxplot summary = 0.07, 0.77, 0.14 and 0.55) and 0.26 (boxplot summary = 0.07, 0.61, 0.20 and 0.33), respectively. b, The distribution of the probability values per patient stratified by Engel class. Due to the AUC being high for fragility, it is expected that Engel 1 has high predicted probability of success, while Engel 2–4 classes have lower success probability. However, the relative downward trend in the success probabilities from Engel 2 to 4 indicated that neural fragility is present in the clinical SOZ in varying degrees for these Engel classes, which suggests that it correlates with the underlying severity of failed outcomes. Engel 4 has the lowest average predicted probability of success as expected. Patients with an Engel 1, 2, 3 or 4 class had a median predicted probability of success of 0.63 (boxplot summary = 0.09, 0.96, 0.46 and 0.80), 0.27 (boxplot summary = 0.07, 0.72, 0.14 and 0.45), 0.30 (boxplot summary = 0.07, 0.71, 0.25, 0.38) and 0.20 (boxplot summary = 0.06, 0.85, 0.10 and 0.24), respectively. c, A similar distribution was observed for another measure of surgical outcome, the ILAE score, where 1 is considered success and 2–6 are considered failure. Here, ILAE 2–5 follow a decreasing trend with ILAE 6 having the lowest average predicted probability of success. ILAE 1, 2, 3, 4 5 and 6 have a median predicted probability of success of 0.63 (boxplot summary = 0.09, 096, 0.46 and 0.80), 0.34 (boxplot summary = 0.21, 0.88, 0.29 and 0.60), 0.30 (boxplot summary = 0.07, 0.72, 0.11 and 0.60), 0.26 (boxplot summary = 0.07, 0.85,  0.20, 0.33), 0.20 (boxplot summary = 0.06, 0.52, 0.11, 0.37) and 0.16 (boxplot summary = 0.08, 0.33, 0.09 and 0.22), respectively.
+NAturE NEur OSCIENCE | VOL 24 | OCTOBEr 2021 | 1465–1474 | www.nature.com/natureneuroscience 1471
+Articles NaTUrE NEUrOScIENcEfailed outcomes, neural fragility had the largest difference, whereas 
+beta power was hard to distinguish (Extended Data Fig. 9). Finally, we examined the model predictions based on gender, handedness, 
+onset age and surgery age; there were no relevant differences for 
+these parameters (Extended Data Fig. 10).
+Discussion
+We demonstrated that neural fragility, a networked-dynamic-  
+systems-based representation of iEEG, is a strong candidate for a highly interpretable iEEG biomarker of the SOZ. We compared neural fragility to 20 other popular features using data from n = 91 
+patients treated across five centers with varying CC. Neural fragility performed the best in terms of AUC, PR and interpretability when benchmarking proposed iEEG features in a uniform fashion over the same sets of patients using the best possible parameters of a RF 
+model to compute a confidence measure (that is, probability of suc
+-
+cess) of the clinically annotated SOZ. We spent more than 4 years to 
+collect and annotate this heterogeneous dataset. To facilitate repro -
+ducibility and further investigation of iEEG features, we have made this dataset compliant with Brain Imaging Data Structure (BIDS) and publicly available through the OpenNeuro website (for details 
+see Methods and ‘Code availability’).
+Challenges in validating iEEG features as SOZ markers. Many fea
+-
+tures have been proposed as potential biomarkers for the SOZ, but 
+none have successfully translated into the clinical workflow11,12,31,33. 
+Current limitations for evaluating computational approaches to localization are largely attributed to insufficient benchmarking to 
+other iEEG features and a lack of sufficient sampling across epilepsy 
+etiologies.
+Even with seemingly successful features derived from data, it is 
+important to benchmark against existing approaches to provide a 
+holistic view of the value of the said feature. Without benchmarking, 
+it is easy to become overly optimistic in terms of the performance of a feature, whereas it is possible that other iEEG features perform just as well due to the low CC presentation of the patient. While other traditional features such as the power in the beta band seem to be 
+informative in SOZ localization, neural fragility outperforms this in 
+effect size, P value and interpretability.
+Although predicting surgical outcomes in our experimen
+-
+tal set-up was promising, it will be important to understand why certain localizations are successful and why certain ones are insuf
+-
+ficient. For example, in patients with lesions on MRI scans that cor -
+relate with the EEG and seizure semiology of the patient, surgical resection can lead to seizure-free outcomes in approximately 70% of patients
+21. Even in these relatively straightforward cases, localization 
+is not perfect, possibly due to chronic effects of epilepsy such as kin -
+dling, which can cause neighboring tissue to become abnormal and epileptogenic
+34. There is a need to sample heterogeneous and large 
+patient populations and to derive a feature invariant to epilepsy type and clinical covariates.Clinical case complexity and surgical outcomes. In our dataset, we saw varying outcomes across the five clinical centers. Differences in seizure outcomes across the clinical centers can be explained by 
+several factors affecting the complexity of the epileptic syndromes. 
+The multifactorial contributory factors can be related to the per
+-
+centage of non-lesional versus lesional cases, multiple surgical interventions in the past, patient selection and group experience. For example, JHH is a tertiary referral center with a great deal of 
+experience but also high complexity cases (non-lesional MRIs, mul
+-
+tiple surgical interventions in the past, complex semiology and EEG 
+interpretation). In addition, data collection is limited depending on clinician resources and retrospective data availability. The relative 
+center-by-center outcomes are not reflective of the surgical outcome 
+rate of the actual center, but rather samples from the clinical cases that those clinicians analyzed and were readily available for sharing. The pooled 91 patients though do reflect the approximately 50% 
+surgical success rates seen in patients with DRE
+20,35,36. By including 
+multiple centers, we sought to build a diversified sample of varying 
+CCs and practices, thus lending the evaluation of neural fragility 
+more confidence. An important next step would be the prospec -
+tive evaluation of neural fragility in the context of different clinical 
+case complexities to determine whether surgical treatment can be improved with SOZ localization assistance. In addition, future data
+-
+sets should be made BIDS-compliant and available to the public to further develop localization algorithms.
+Limitations of the most popular iEEG features. A Google Scholar 
+search using the keywords ‘localization of seizure onset zone epi
+-
+lepsy intracranial EEG’ produces over 24,000 results. This is striking considering that no computational tools to assist in SOZ localiza
+-
+tion are in the clinical workflow today. The majority of proposed features lack consistency in finding objective iEEG quantities that correlate to clinically annotated SOZ because they fail to capture 
+internal properties of the iEEG network that are critical to under
+-
+stand when localizing the SOZ. Proposed algorithms either compute 
+EEG features from individual channels (for example, spectral power in a given frequency band), thus ignoring dependencies between 
+channels
+9,37 to name a few, or they apply network-based measures 
+to capture pairwise dependencies in the EEG window of interest11,12. 
+Specifically, correlation or coherence between each pair of EEG 
+channels is computed and organized into an adjacency matrix, on 
+which summary statistics are derived, including degree distribution 
+and variants of centrality10–13,15. Such network-based measures are 
+not based on well-formulated hypotheses of the role of the epileptic tissue in the iEEG network, and many different networks (adjacency 
+matrices) can have identical summary statistics that result in ambig
+-
+uous interpretations of such measures38.
+A popular EEG feature that has been proposed as an iEEG 
+marker of the SOZ and reported in over 1,000 published studies is HFOs (for example, refs. 
+9,33,39 to name a few). HFOs are sponta -
+neous events occurring on individual EEG channels that distinc -
+tively stand out from the background signal and are divided into 
+three categories: ripples (80–250 Hz), fast ripples (250–500 Hz) 
+and very-fast ripples (>500 Hz)40. Retrospective studies have sug -
+gested that resecting brain regions with high rates of HFOs may lead to good post-surgical outcome (for examples, see refs. 
+41,42). 
+Although they found statistically significant effects for resected areas that either presented a high number of ripples or fast ripples, 
+effect sizes were small and only a few studies fulfilled their selec
+-
+tion criteria42. Furthermore, several studies have also questioned 
+the reproducibility and reliability of HFOs as a marker39,41,43. In 
+addition, there are physiologic, non-epileptic HFOs, which poses a 
+challenge, as disentangling them from pathological HFOs is still an  
+unsolved issue44.
+Similar inconclusive results hold in completed prospective stud -
+ies of HFOs. In 2017, an updated Cochrane review45 investigated T able 1 | Number of patients per clinical center
+Clinical center patients
+Clinical covariate NIH JHH uMMC uMH CClinic total
+Number of patients 14 4 7 5 61 91
+Number of 
+successes9 1 7 3 24 44
+Number of failures 5 3 0 2 37 47
+Number of males 6 NA 7 1 30 44
+Number females 8 NA 0 4 31 43
+Includes number of success, failures and gender per group. Note that JHH did not retain gender 
+information for these group of patients. NA, not applicable.
+NAturE NEur OSCIENCE | VOL 24 | OCTOBEr 2021 | 1465–1474 | www.nature.com/natureneuroscience 1472
+Articles NaTUrE NEUrOScIENcEthe clinical value of HFOs regarding decision-making in epilepsy 
+surgery. They identified only two prospective studies at the time and concluded that there is not enough evidence so far to allow 
+for any reliable conclusions regarding the clinical value of HFOs as 
+a marker for the SOZ. Today, five clinical trials are listed as using HFOs for surgical planning in ClinicalTrials.gov as recruiting, 
+enrolling by invitation or active and not enrolling, and none have 
+reported results. The fundamental limitation of the aforementioned 
+studies lies in the fact that they approach the SOZ EEG marker dis
+-
+covery process as a signal processing and pattern recognition prob -
+lem, concentrating on processing EEG observations to find events of interest (for example, HFOs) as opposed to understanding how the observations were generated in the first place and how specific 
+internal network properties can trigger seizures.
+Why neural fragility performs well. Rather than analyzing iEEG 
+data at the channel and signal processing level, we sought to model 
+the underlying network dynamics that might give rise to seizures in 
+the form of neural fragility in a dynamic network model. A notion of fragility in networks is commonly seen in analyses of structural
+46 
+networks. Although we are not directly analyzing the structural nature of the neuronal network, there are studies that have charac
+-
+terized epilepsy in terms of structural fragility and network organi -
+zation18,47. Specifically, in cellular studies27,28, epilepsy is caused by 
+changes in the structural cell network, which causes loss of inhibi -
+tion or excessive excitation; these biological changes cause down -
+stream aberrant electrical firing (that is, seizures). By quantifying the fragility of each node in an iEEG network, we determined how much of a change in dynamic connections in that region is nec
+-
+essary to cause seizure-like phenomena (that is, instability). As a result, high neural fragility coincides with a region that is sensitive to minute perturbations, causing unstable phenomena in the entire 
+network (that is, a seizure).
+Scientific advances emerging from neural fragility. Neural fragil
+-
+ity has the potential to redefine how epilepsy surgery is performed, 
+departing from the classical localization paradigms and en bloc resections to a personalized network-based user-friendly visualiza
+-
+tion and surgical strategy. By developing a three-dimensional (brain region, time and fragility) network-based method for anatomical representation of the epileptiform activity, including the seizure 
+onset areas and the early propagation zone, this study will have the 
+potential to offer a safer, more efficient and cost-effective treatment option for a highly challenging group of patients with disabling DRE. More precise SOZ localization using neural fragility would 
+also guide chronic implantation of neurostimulation devices aimed 
+at suppressing seizures with bursts of current when detected
+48,49.
+Neural fragility may also be relevant in detecting epileptogenic 
+regions in the brain when applied to interictal (between seizures) 
+iEEG recordings. Seizure iEEG data are currently the gold standard 
+in clinical practice for localizing the SOZ21. However, having patients 
+with electrodes implanted for long periods of time, and requiring the monitoring of multiple seizure events over many weeks, carries 
+the risk of infection, sudden death, trauma and cognitive deficits 
+from having repeated seizures. This contributes to the large cost of epilepsy monitoring
+2. If a candidate iEEG marker could be found 
+that is able to provide strong localizing evidence using only interictal data, then it would substantially reduce invasive monitoring time
+47.
+Neural fragility is an EEG marker that can also further advance 
+our knowledge of neural mechanisms of seizure generation that will 
+then drive more effective interventions. For example, fragility can be 
+used to identify pathological tissue that is then removed and tested in vitro for abnormal histopathological structure
+27,28. Knowledge of 
+structural abnormalities may inform new targeted drug treatments. In the future, specific fragility patterns can be correlated with 
+specific pathological substrates. Likely, the specific pathological 
+ substrates will have different therapeutic approaches. As an exam -
+ple, epilepsy caused by focal cortical dysplasia is treated with focal 
+surgical resection, but post-encephalitic epilepsy may have a better therapeutic response with immunosuppressants and steroids.
+Finally, neural fragility may have broader implications in under
+-
+standing how underlying brain network dynamics change during intervention (for example, with drugs or electrical stimulation). Fragility analysis can be applied as a method of assessing the effi
+-
+cacy of specific drug trials to specific pathological groups, which include not only epilepsy but other neurological conditions such as Alzheimer’s disease or the spectrum of dementias. Commonly, the 
+current optimal criteria to recognize therapeutic success in many 
+neurological conditions are purely clinical, but clinical responses are not immediate. This delay in recognizing the appropriate drug and adequate therapeutic doses is highly detrimental. Computational 
+methods such as fragility measuring EEG before and after drug 
+administration could provide additional criteria for drug responses. This quantitative measurement can be immediate, guiding the treat
+-
+ing physician to the correct treatment without delays and unneces -
+sary drug trials. Furthermore, if neural fragility could be accurately obtained from noninvasive tests or from permanently implanted devices, the current fragility of the network could be used as a sur
+-
+rogate marker of the current clinical state of the patient. As such, the changes in fragility could be used as a proxy for improvement or recurrences that occur as medication doses (or other treatments, 
+such as the keto diet
+50) are changed over time.
+Online content
+Any methods, additional references, Nature Research report -
+ing summaries, source data, extended data, supplementary infor -
+mation, acknowledgements, peer review information; details of 
+author contributions and competing interests; and statements of data and code availability are available at https://doi.org/10.1038/
+s41593-021-00901-w .
+Received: 5 November 2020; Accepted: 30 June 2021;  
+Published online: 5 August 2021
+references
+ 1. Berg, A. T. Identification of pharmacoresistant epilepsy. Neurologic Clinics 27, 
+1003–1013 (2009).
+ 2. Epilepsy: A Public Health Imperative  (World Health Organization, 2019).
+ 3. Jobst, B. C. Consensus over individualism: validation of the ILAE definition 
+for drug resistant epilepsy. Epilepsy Curr.  15, 172–173 (2015).
+ 4. Begley, C. E. & Durgin, T. L. The direct cost of epilepsy in the United States: a systematic review of estimates. Epilepsia  56, 1376–1387 (2015).
+ 5. Jehi, L. The epileptogenic zone: concept and definition. Epilepsy Curr.  18, 
+12–16 (2018).
+ 6. Penfield, W . Epileptogenic lesions. Acta Neurol. Psychiatr. Belg. 56,  
+75–88 (1956).
+ 7. Jobst, B. C., Darcey, T. M., Thadani, V . M. & Roberts, D. W . Brain stimulation for the treatment of epilepsy: brain stimulation in epilepsy. Epilepsia  51, 
+88–92 (2010).
+ 8. Scharfman, H. E. The neurobiology of epilepsy. Curr. Neurol. Neurosci. Rep. 7, 
+348–354 (2007).
+ 9. Gliske, S. V . et al. Universal automated high frequency oscillation detector for real-time, long term EEG. Clin. Neurophysiol. 127, 1057–1066 (2016).
+ 10. Shah, P . et al. Local structural connectivity directs seizure spread in focal epilepsy. Preprint at bioRxiv https://doi.org/10.1101/406793 (2018).
+ 11. Li, A. et al. Using network analysis to localize the epileptogenic zone from invasive EEG recordings in intractable focal epilepsy. Netw. Neurosci. 2, 
+218–240 (2018).
+ 12. Burns, S. P . et al. Network dynamics of the brain and influence  of the epileptic seizure onset zone. Proc. Natl Acad. Sci. USA 111, 
+E5321–E5330 (2014).
+ 13. Y affe, R. B. et al. Physiology of functional and effective networks in epilepsy. Clin. Neurophysiol. 126, 227–236 (2015).
+ 14. Khambhati, A. N., Davis, K. A., Lucas, T. H., Litt, B. & Bassett, D. S. Virtual cortical resection reveals push–pull network control preceding seizure evolution. Neuron  91, 1170–1182 (2016).
+NAturE NEur OSCIENCE | VOL 24 | OCTOBEr 2021 | 1465–1474 | www.nature.com/natureneuroscience 1473
+Articles NaTUrE NEUrOScIENcE 15. Bassett, D. S. & Sporns, O. Network neuroscience. Nat. Neurosci. 20,  
+353–364 (2017).
+ 16. Li, A., Inati, S., Zaghloul, K. & Sarma, S. Fragility in epileptic networks: the 
+epileptogenic zone. in Proc.  American Control Conference  (IEEE, 2017); 
+https://ieeexplore.ieee.org/abstract/document/7963378
+ 17. Li, A. et al. Linear time-varying model characterizes invasive EEG signals generated from complex epileptic networks. in Proc. Annual International Conference of the IEEE Engineering in Medicine and Biology Society  
+2802–2805 (IEEE, 2017); https://pubmed.ncbi.nlm.nih.gov/29060480/
+ 18. Sritharan, D. & Sarma, S. V . Fragility in dynamic networks: application to neural networks in the epileptic cortex. Neural Comput.  26, 2294–2327 (2014).
+ 19. Jette, N., Reid, A. Y . & Wiebe, S. Surgical management of epilepsy. CMAJ 186, 997–1004 (2014).
+ 20. Engel, J. et al. Early surgical therapy for drug-resistant temporal lobe epilepsy: a randomized trial. JAMA 307, 922–930 (2012).
+ 21. Sheikh, S., Nair, D., Gross, R. & Gonzalez Martinez, J. Tracking a changing paradigm and the modern face of epilepsy surgery: a comprehensive and critical review on the hunt for the optimal extent of resection in mesial temporal lobe epilepsy. Epilepsia  60, 1768–1793 (2019).
+ 22. Crino, P . B. et al. Increased expression of the neuronal glutamate transporter (EAAT3/EAAC1) in hippocampal and neocortical epilepsy. Epilepsia  43, 
+211–218 (2002).
+ 23. González-Martínez, J. A., Ying, Z., Prayson, R., Bingaman, W . & Najm, I. 
+Glutamate clearance mechanisms in resected cortical dysplasia: Laboratory investigation. J. Neurosurg.  114, 1195–1202 (2011).
+ 24. Noebels, J. L. The biology of epilepsy genes. Annu. Rev. Neurosci. 26,  
+599–625 (2003).
+ 25. Bradford, H. F. Glutamate, GABA and epilepsy. Prog. Neurobiol. 47,  
+477–511 (1995).
+ 26. Traub, R. D. et al. A possible role for gap junctions in generation of very fast EEG oscillations preceding the onset of, and perhaps initiating, seizures. Epilepsia  42, 153–170 (2001).
+ 27. DeFelipe, J. Chandelier cells and epilepsy. Brain  122, 1807–1822 (1999).
+ 28. Jin, X., Prince, D. A. & Huguenard, J. R. Enhanced excitatory synaptic connectivity in layer V pyramidal neurons of chronically injured epileptogenic neocortex in rats. J. Neurosci. 26, 4891–4900 (2006).
+ 29. Bulacio, J. C., Chauvel, P . & McGonigal, A. Stereoelectroencephalography: interpretation. J. Clin. Neurophysiol. 33, 503–210 (2016).
+ 30. Couronné, R., Probst, P . & Boulesteix, A. L. Random forest versus logistic regression: a large-scale benchmark experiment. BMC Bioinformatics  19,  
+270 (2018).
+ 31. Sheikh, S. et al. (Re)defining success in epilepsy surgery: the importance of relative seizure reduction in patient-reported quality of life. Epilepsia  60, 
+2078–2085 (2019).
+ 32. Vakharia, V . N. et al. Getting the best outcomes from epilepsy surgery. Ann. Neurol. 83, 676–690 (2018).
+ 33. Varatharajah, Y . et al. Integrating artificial intelligence with real-time intracranial EEG monitoring to automate interictal identification of seizure onset zones in focal epilepsy. J. Neural Eng. 15, 046035 (2018). 34. Laxer, K. D. et al. The consequences of refractory epilepsy and its treatment. Epilepsy Behav.  37, 59–70 (2014).
+ 35. McIntosh, A. M. et al. Long-term seizure outcome and risk factors for recurrence after extratemporal epilepsy surgery. Epilepsia  53, 970–978 (2012).
+ 36. Y ardi, R. et al. Long-term outcomes of reoperations in epilepsy surgery. Epilepsia  61, 465–478 (2020).
+ 37. Jeppesen, J., Beniczky, S., Johansen, P ., Sidenius, P . & Fuglsang-Frederiksen, A. Detection of epileptic seizures with a modified heart rate variability algorithm based on Lorenz plot. Seizure 24, 1–7 (2015).
+ 38. Chung, J. et al. Statistical connectomics. Preprint at OSF  https://doi.
+org/10.31219/osf.io/ek4n3 (2020).
+ 39. Fedele, T. et al. Resection of high frequency oscillations predicts seizure outcome in the individual patient. Sci. Rep. 7, 13836 (2017).
+ 40. Haegelen, C. et al. High-frequency oscillations, extent of surgical resection, and surgical outcome in drug-resistant focal epilepsy. Epilepsia  54,  
+848–857 (2013).
+ 41. Cuello-Oderiz, C. et al. Value of ictal and interictal epileptiform  discharges and high frequency oscillations for delineating the epileptogenic zone in patients with focal cortical dysplasia. Clin. Neurophysiol. 129, 
+1311–1319 (2018).
+ 42. Höller, Y . et al. High-frequency oscillations in epilepsy and surgical outcome. A meta-analysis. Front. Hum. Neurosci. 9, 574 (2015).
+ 43. Spring, A. M. et al. Interrater reliability of visually evaluated high frequency oscillations. Clin. Neurophysiol. 128, 433–441 (2017).
+ 44. Höller, P ., Trinka, E. & Höller, Y . Electroencephalogram: mission impossible without computational intelligence. Comput. Intell. Neurosci. 2018,  
+1638097 (2018).
+ 45. Gloss, D., Nevitt, S. J. & Staba, R. The role of high-frequency oscillations  
+in epilepsy surgery planning. Cochrane Database Syst. Rev. 10,  
+CD010235 (2017).
+ 46. Chang, W . C. et al. Loss of neuronal network resilience precedes seizures and determines the ictogenic nature of interictal synaptic perturbations. Nat. Neurosci. 21, 1742–1752 (2018).
+ 47. Kramer, M. A. & Cash, S. S. Epilepsy as a disorder of cortical network organization. Neuroscientist 18, 360–372 (2012).
+ 48. Meador, K. J., Kapur, R., Loring, D. W ., Kanner, A. M. & Morrell, M. J. Quality of life and mood in patients with medically intractable epilepsy treated with targeted responsive neurostimulation. Epilepsy Behav.  45, 
+242–247 (2015).
+ 49. Loring, D. W ., Kapur, R., Meador, K. J. & Morrell, M. J. Differential neuropsychological outcomes following targeted responsive neurostimulation for partial-onset epilepsy. Epilepsia  56, 1836–1844 (2015).
+ 50. D’ Andrea Meira, I. et al. Ketogenic diet and epilepsy: what we know so far. Front. Neurosci. 13, 5 (2019).
+Publisher’s note Springer Nature remains neutral with regard to jurisdictional claims in 
+published maps and institutional affiliations.
+© The Author(s), under exclusive licence to Springer Nature America, Inc. 2021, 
+corrected publication 2022
+NAturE NEur OSCIENCE | VOL 24 | OCTOBEr 2021 | 1465–1474 | www.nature.com/natureneuroscience 1474
+Articles NaTUrE NEUrOScIENcEMethods
+All data were acquired with approval from the local institutional review board 
+(IRB) at each clinical institution: UMMC by the IRB of the University of Maryland School of Medicine; UMH by the University of Miami Human Subject Research Office—Medical Sciences IRB; NIH by the National Institutes of Health IRB; JHH by Johns Hopkins IRB; and CClinic by the Cleveland Clinic IRB. Informed consent was given at each clinical center. The acquisition of data for research purposes was completed with no impact on the clinical objectives of the patient stay. Digitized data were stored in an IRB-approved database compliant with Health Insurance Portability and Accountability Act regulations.
+Dataset collection. iEEG data from 91 patients with DRE who underwent 
+iEEG monitoring, which included either electrocorticography (ECoG) or depth electrodes with stereo-EEG (SEEG), were selected from the UMMC, UMH, the NIH, JHH and CClinic. Patients exhibiting the following criteria were excluded: no seizures recorded, pregnant, sampling rate less than 250 Hz, 
+previous surgeries more than 6 months before, and no surgery performed (possibly from SOZ localizations in eloquent areas). We defined successful outcomes as seizure-free (Engel class 1 and ILAE scores of 1 and 2) at 12+ months post-operation and failure outcomes as seizure recurrence (Engel classes 2–4)
+29,51,52. Of these 91 patients, 44 experienced successful outcomes and 47 had 
+failed outcomes (age at surgery = 31.52 ± 12.32 years) with a total of 462 seizures 
+(seizure length = 97.82 ± 91.32 s) and 14,703 total number of recording electrodes 
+(159.82 ± 45.42 per participant). Decisions regarding the need for invasive 
+monitoring and the placement of electrode arrays were made independently of this work and part of routine clinical care. Data collection and labeling of patients were done retrospectively and therefore blind to the authors conducting data analysis (that is, A.L., C.H. and S.V .S.), but not with respect to the corresponding clinicians. Data analyses were not performed blind to the conditions of the experiments. Sample sizes were determined by attempting to gather as many patients as possible from multiple clinical centers (see Table 1 for a summary of all patients gathered). When possible, we sought to have a balance of patients with lesional, temporal, extratemporal or multifocal epilepsy, along with a relatively proportional number of patients with successful or failed epilepsy surgery (success defined as seizure-free; failure defined as seizure recurrence). We recruited 100 patients and then removed 9 due to exclusion criteria. No statistical methods were used to predetermine sample sizes, but our sample sizes are larger than those reported in previous publications
+11.
+Our clinician team categorized patients by surgical outcome, Engel class 
+and ILAE score. In addition, we categorized patients by their CC as follows: (1) lesional, (2) focal temporal, (3) focal extratemporal and (4) multifocal
+21,29 (Fig. 3). 
+Each of these were categorized based on previous outcome studies that support this increasing level of localization difficulty. Patients with lesional epilepsy have success rates of 7̃0%, experiencing the highest rate of surgical success because the lesions identified through MRI are likely to be part of the SOZ
+53. Localization and 
+surgical success are more challenging in patients with non-lesional MRI, with average surgical success rates in temporal, extratemporal and multifocal epilepsy of 6̃0%, 45% and 3̃0%, respectively
+31,32. Patients that fit into multiple categories were 
+placed into the more complex category. Next, clinicians identified electrodes that they hypothesized as the SOZ. In general, this was a subset of the resected region for all patients, unless otherwise noted. The epileptologists defined the clinically annotated SOZ as the electrodes that participated the earliest in seizures. The SOZ for every patient was labeled by one to three trained epileptologists (depending on the center). The corresponding SOZ
+C that we defined are the electrodes that are 
+not part of the SOZ. For more detailed information regarding each patient, see the clinical data summary in Supplementary Table 1 and Table 1.
+At all centers, data were recorded using either a Nihon Kohden or Natus 
+acquisition system with a typical sampling rate of 1,000 Hz (for details regarding 
+sampling rate per patient, see Supplementary Table 1). Signals were referenced to a common electrode placed subcutaneously on the scalp (on the mastoid process or on the subdural grid). At all centers, as part of routine clinical care, up to three board-certified epileptologists marked the electrographic onset and the termination of each seizure by consensus. The time of seizure onset was indicated by a variety of stereotypical electrographic features that included, but were not limited to, the onset of fast rhythmic activity, an isolated spike or spike-and-wave complex followed by rhythmic activity or an electrodecremental response. Each snapshot available for a patient was clipped at least 30 s before and 
+after the ictal event. We discarded electrodes from further analysis if they were deemed excessively noisy by clinicians, recording from white matter or were not EEG related (for example, reference, EKG or not attached to the brain) which resulted in 97.23 ± 34.87 (mean ± s.d.) electrodes used per patient in our analysis. 
+Data were initially stored in the form of the European Data Format (EDF) files
+54. 
+We preprocessed data into the BIDS-iEEG format and performed processing using Python3.6, Numpy, Scipy, MNE-Python and MNE-BIDS
+55–61. Figures were 
+generated using Matplotlib and Seaborn62–64. Statistical analyses were performed 
+with mlxtend, pingouin, dabest, scipy and scikit-learn61,65–68.
+Preprocessing of data. Every dataset was notch filtered at 60 Hz (with a cutoff 
+window of 2 Hz) and band-pass-filtered between 0.5 and the Nyquist frequency with a fourth-order Butterworth filter. A common average reference was applied to remove any correlated noise. EEG sequences were broken down into sequential windows and the features were computed within each window (see ‘Neural fragility of the iEEG network’ , ‘Baseline features—spectral features’ and ‘Baseline features—graph analysis of networks’ below for details). Each proposed feature representation produces a value for each electrode for each separate window and results in a full spatiotemporal heatmap when computed over sequential windows with electrodes on the y axis, time on the x axis and feature value on the color axis. 
+In total, we computed 20 different baseline feature representations from the iEEG data: 6 frequency power bands, 7 eigenvector centralities (1 for each frequency band coherence connectivity matrix and 1 for a correlation connectivity matrix), and 7 degrees (1 for each frequency band coherence connectivity matrix and 1 for a correlation connectivity matrix). Values at each window of time were normalized across electrodes to values that could range from 0 up to at most 1 to allow for comparison of relative feature value differences across electrodes over time; the higher a normalized feature, the more we hypothesized that the electrode was part of the SOZ
+16.
+Neural fragility of the iEEG network. When one observes iEEG data during interictal, or preictal, periods, activity recorded from each channel is noisy and hovers around a baseline value. In contrast, when one observes iEEG data during a seizure event, activity grows in amplitude, oscillates and spreads in the brain. 
+From a dynamic systems perspective, the iEEG network has switched from a 
+stable (non-seizure) to an unstable (seizure) network. The only difference between 
+the iEEG networks shown in Fig. 2 is the connection strengths representing the dynamical interactions between a few channels; that is, the SOZ. Our conjecture is that small changes in connection strengths at SOZ nodes cause an imbalance in inhibitory and excitatory connectivity between brain regions. Either inhibition is decreased and/or excitation is increased; thus, if the SOZ is perturbed, then overexcitation can occur, manifesting in a seizure.
+To compute fragility heatmaps from iEEG recordings, we first constructed 
+simple linear models as described above and in equation (1).
+x(t+1)=Ax(t) (1)
+Since each observation, x∈Rd, has dimension d (number of channels), we 
+formulated a least-squares estimation procedure with n > d samples. We choose n 
+to represent a 250-ms iEEG window. We then have the following representation of 
+X(t)∈Rd×n−1:
+X(t)=
+|| |
+x(1)x(2)···x(n−1)
+|| |
+(2)
+and the following representation for X(t+1)∈Rd×n−1
+X(t+1)=
+|| |
+x(2)x(3)···x(n)
+|| |
+(3)
+The least-squares will now seek to fit a linear operator A  such that
+X(t+1)≈AX(t) (4)
+This linear operator representation of the dynamic system has connections 
+to Koopman operator theory69 and dynamic mode decomposition in fluid 
+mechanics70. We sought to approximate the inherently nonlinear iEEG dynamics 
+within a small window of time using a finite-dimensional approximation of the 
+Koopman operator using the observables (that is, x(t)) themselves. We specifically used least-squares algorithm with a 10 × 10
+−5 L2-norm regularization to ensure 
+that the model identified was stable (with an absolute value of eigenvalues ≤ 1) as in refs. 
+16,17. Then, we slid the window by 125 ms and repeated the process over 
+the entire data sample, generating a sequence of linear network models in time (as shown in Extended Data Fig. 1). We systematically computed the minimum perturbation required for connections for each electrode (Extended Data Fig. 1)  
+to produce instability for the entire network as described in ref. 
+16. This is 
+represented in equation (5), where the Δi is the desired column perturbation 
+matrix for channel i, and the λ=r∈C is the desired radii to perturb one single 
+eigenvalue to
+Δi=min||Δi||s.t.∃λ=r∈σ(A+Δ) (5)
+More specifically, we computed a structured perturbation matrix, such that
+Δi=
+|| |
+0···Γi···0
+|| |
+(6)
+NAturE NEur OSCIENCE | www.nature.com/natureneuroscience
+Articles NaTUrE NEUrOScIENcEwhere each Γi∈Rd is the actual column perturbation vector. The intuition for 
+using this type of structured perturbation is described in ‘Description of neural 
+fragility’ . We demonstrate how to solve this using least-squares in ref. 16. The 
+electrodes that were the most fragile were hypothesized to be related to the SOZ in these epilepsy networks (seen as the dark-red color in the turbo color map  
+in Fig. 4 ).
+Baseline features—spectral features. We constructed spectral-based features from frequency bands of interest by applying a multi-taper Fourier transform over sliding windows of data with a window/step size of 2.5/0.5 s (ref. 
+12). We required 
+relatively longer time windows to accurately estimate some of the lower frequency bands. Each EEG time series was first transformed into a three-dimensional array (electrodes × frequency × time) and then averaged within each frequency band to 
+form six different spectral feature representations of the data. We broke down the frequency bands as follows:
+ 1. Delta frequency band: 0.5–4 Hz
+ 2. Theta frequency band: 4–8 Hz
+ 3. Alpha frequency band: 8–13 Hz
+ 4. Beta frequency band: 13–30 Hz
+ 5. Gamma frequency band: 30–90 Hz
+ 6. High-gamma frequency band: 90–300 Hz
+The high-gamma frequency band includes frequencies of ripples, which is a 
+category of HFOs.
+Baseline features—graph analysis of networks. We computed a time domain 
+model using Pearson’s correlation (equation (7)) and a frequency domain model using coherence (equation (8)). We computed the connectivity matrix using MNE-Python and used the default values
+58. In the equations, (i, j) are the electrode 
+indices, Cov is the covariance, σ is the standard deviation, f is the frequency band and G is the cross-spectral density. These connectivity models attempt to capture linear correlations either in time or in a specific frequency band, but are not dynamic system representations of the data (that is, x(t + 1) = Ax(t)). For each 
+network-based feature, a sliding window/step size of 2.5/0.5 s was used, resulting 
+in a sequence of network matrices over time resulting in three-dimensional arrays (electrodes × electrodes × time; for coherence matrices, this would result in a 
+three-dimensional array for each frequency band selected)
+11–13.
+Corrij=Cov(xi,xj)
+σxiσxj(7)
+Cohij(f)=|Gij(f)|2
+Gii(f)Gjj(f)(8)
+From each network matrix, we computed the eigenvector centrality11,12 and the 
+degree features of the network for each electrode across time. Since coherence and Pearson’s correlation are symmetric matrices, the in-degree is equivalent to the out-degree. Centrality describes how influential a node is within a graph network. The degree is the weighted sum of the connections that connect to a specific  node. Both features are potential measures that attempt to capture the  influence of a specific electrode within an iEEG network through the lens  of graph theory.
+Experimental design. We tested whether the neural fragility representation of 
+iEEG data localized the SOZ better than other proposed features and clinicians and compared to chance. Electrodes with extreme feature values deviating from the average were hypothesized as part of the SOZ.
+To compute a probability of successful surgical outcome for each patient, we 
+trained a nonparametric machine-learning classifier, a RF classifier to output a probability value that the surgery was a success. We input the distribution of feature values in the clinically SOZ and the SOZ
+C. We considered a set of 
+hyperparameters that we then performed evaluation over a tenfold nested CV scheme. We then performed statistical analysis on the final classification performance to determine the most robust feature representation.
+Pooled patient analysis. First, we analyzed the difference in the distributions of 
+neural fragility between the SOZ and the SOZ
+C. We pooled all patients together, 
+stratified by surgical outcome and compared the neural fragility distributions using one-sided Mann–Whitney U-test P(success) = 3.326 × 10
+−70, P(fail) = 0.355; 
+Extended Data Fig. 3). This suggested that there is some effect on average where 
+fragility is higher in the SOZ for successful outcomes, so we next looked at the 
+distributions of snapshot around seizure onset per patient. In Extended Data Fig. 4, patients with successful outcomes have a higher neural fragility in the SOZ. This effect was also seen when pooling patients across all centers, whereby neural 
+fragility was either higher before the seizure onset or had a marked difference 
+starting at seizure onset (Extended Data Fig. 5). Next, we performed a classification 
+experiment (Fig. 3) that would determine the robustness of the neural fragility representation at the patient level benchmarked against 20 other features.Nonparametric decision-tree classifier. To determine the value of a feature representation of the iEEG data, we posed a binary classification problem where the goal would be to determine the surgical outcome (success or failure) for the spatiotemporal heatmap for a particular patient. Each spatiotemporal heatmap was split into its SOZ and SOZ
+C set (FSOZ and FSOZC in Extended Data Fig. 1). Then, the 
+feature distributions of each set of electrodes were summarized with its quantile statistics over time, resulting in 20 signals: 10 quantiles from 10–100 of the SOZ and 10 quantiles of the SOZ
+C over time. We used a RF classifier71. Specifically, it 
+was a variant known as the structured RF or manifold RF72,73. The manifold RF 
+approach allows one to encode structural assumptions on the dataset, such as correlations in time of the input data matrix. This modeling flexibility allows the manifold RF to learn classifications (if there are any) in the dataset. The input data matrix for each RF is a multivariate time series that summarizes the quantile statistics of the SOZ and the SOZ
+C over time. As a result, we obtained better results 
+using the manifold RF because it took advantage of local correlations in time rather than treating all values in the data matrix input as independent as done in a traditional RF model. This approach allowed our classifiers to learn faster with less data compared to treating all inputs as independent in the traditional RF model. For more information on how manifold RF improves on traditional RF, we refer readers to refs. 
+72,73. For every model, we used the default parameters from 
+scikit-learn and the rerf package68,73: 500 estimators, max depth is None, minimum 
+samples split is 1, max features is auto, feature combinations is 1.5, image height of 20 (20 quantiles total), patch height max of 4, patch height minimum of 1, patch width max of 8 and patch width minimum of 1. The output of the decision tree classifier is as follows:
+ˆfθ(FSOZ,FC
+SOZ)=P(success )
+where θ are the trained RF parameters and FSOZ are the heatmap values for  
+the SOZ and FSOZC are the heatmap values for the SOZC for a specific feature 
+representation F (Extended Data Fig. 1 ). ˆf is the function we are trying to estimate, 
+which predicts the probability of successful surgical outcome for a given feature heatmap.
+Hyperparameters.  When looking at iEEG data, clinicians inherently select windows 
+of interest due to external and prior information about when the seizure clinically 
+manifests. Similarly, we considered a window of 10 s before seizure onset to the 
+first 5% of the seizure event. This window was chosen a priori to analysis, and 
+we repeated the analyses with slightly varying windows, but the results were 
+consistent. To provide further contrast to the spatiotemporal heatmaps, we also considered a threshold between 0.3 and 0.7 (spaced by 0.1) that would be applied to the heatmap such that values below were set to 0. This is analogous to clinicians 
+being able to look at iEEG data and home in only on areas that are extreme relative 
+to the rest. We selected a fixed threshold through nested CV , where thresholds 
+are selected on the train/validation set, and then performance is measured on the held-out test set.
+Structured heatmap input.  To train a RF classifier on patients with varying numbers 
+of channels, we structured the spatiotemporal heatmap inputs to summarize the 
+distributions of the feature values in the SOZ and SOZ
+C sets. We converted these 
+into a vector of 20 quantile values (10 quantiles for SOZ and 10 for SOZC) taken 
+evenly from the 10th to the 100th quantiles. This forms a data matrix per heatmap, 
+which summarizes the SOZ and SOZC distributions over time, fixed around the 
+seizure onset time.
+Nested CV feature evaluation. It is common practice when building a supervised 
+machine-learning model to incorporate CV where the dataset is split into a training and testing set. However, when one has hyperparameters (in addition to the machine-learning model parameters), it is crucial to control against over-fitting to the test dataset
+74. Due to our hyperparameter selection of the optimal heatmap 
+thresholds, we used a nested CV scheme, whereby we split the dataset into a training, validation and a ‘lock-box’ dataset, where the hyperparameters were tuned on an inner CV (70% of the dataset) with the training and validation data, and then performance was evaluated on the lock-box dataset. All features were optimized separately so that their hyperparameters were optimal for that feature. We computed the discrimination statistic known as the AUC. We repeated the nested CV ten times, resulting in a tenfold CV . Statistical analysis was done using nested CV , splitting training, validation and testing groups based on participants, while sampling proportionally the different epilepsy etiologies. We set aside 60% of participants for training, 10% for validation and then 30% as a held-out test set. We used a heuristic of attempting to sample approximately randomly from CC1 to CC4 as defined in the main text. This heuristic attempted to place at least 25% of the participants in the training, validation and held-out test set for each CC. Besides this covariate, the training, validation and held-out test set were randomly determined. We found that this performed slightly better for all features compared to random sampling. We performed patient-level CV , ensuring that no patient was in multiple splits of the dataset (that is, any one patient is only in the train, test or lock-box dataset).
+NAturE NEur OSCIENCE | www.nature.com/natureneuroscience
+Articles NaTUrE NEUrOScIENcEStatistical analysis—hypothesis testing.  Success probability values were  
+computed from the RF classifiers trained on the spatiotemporal feature 
+representations of the iEEG data (fragility, spectral features and graph metrics  from correlation and coherence graphs), which resulted in a distribution of probabilities for each feature.
+To compare the RF model performance across the 20 proposed features of 
+fragility, spectral power and graph metrics, we computed Cohen’s D effect size differences between the groups of interest, and then Mann–Whitney U-tests for unpaired data and paired Wilcoxon rank-sum tests for paired data
+65. We corrected 
+for any multiple comparisons using the Holm–Bonferroni step-down method. In some cases, we also present the LQRT results to show that the results are robust to the statistical test chosen. The LQRT has been shown to be more robust compared to both the Mann–Whitney U-test and t-test in the presence of noise
+75,76. LQRT 
+utilizes a bootstrapping procedure, so its resolution is 0.001 (that is, if it produces a P value of 0, then that means it is <0.001). Since the Mann–Whitney, Wilcoxon and LQRT tests do not rely on a parametric assumption of normality, no explicit 
+parametric assumptions were made. In certain cases, where we also report results 
+of a t-test, we assumed that the data distribution might be normal, but this was not 
+formally tested.
+We compared the success probabilities stratified by the following different 
+clinical covariates: surgical outcome, Engel class, CC, handedness, gender, onset 
+age and surgery age. We then estimated the effect size differences between 
+distributions in the form of Cohen’s D statistic. Cohen’s D was estimated using 
+nonparametric bootstrapping on the observed data with 5,000 re-samples used to construct a 95% confidence interval
+65. The null hypothesis of our experimental 
+setup was that the success probabilities came from the same population. The alternative hypothesis was that the populations were different (that is, a feature could distinguish success from failed outcomes or between different Engel classes).
+Feature evaluation using predicted probability of successful surgery. The 
+fragility and all baseline features proposed generated a spatiotemporal heatmap using EEG snapshots of ictal data. To compare spatiotemporal heatmaps across features, we computed a probability of success (that is, a confidence score) that is hypothesized to be high for success outcomes and low for failures for ‘good’ features. We expected that fragility would follow a trend of decreasing confidence as CC, Engel class and ILAE score increase. For each clinical covariate group, we measured the effect size difference via bootstrapped sampling and the statistical P value between the distributions. We hypothesized the following: (1) fragility would have an effect size difference significantly different from zero when comparing success versus failed outcomes; (2) in addition, this effect size would correlate with meaningful clinical covariates, such as CC and Engel class; and (3) both the effect size and P value would be better than the proposed baseline features.
+The higher the probability of success (closer to 1), the more likely the feature 
+indicated a successful surgery, whereas the lower it was (closer to 0), the more likely the feature indicated a failed surgery. To compute this value, we first partitioned the heatmap into the SOZ and the SOZ
+C. This forms the two sets of 
+signals that represent the spatiotemporal feature values of the SOZ set versus the SOZ
+C set of electrodes. Then we took windows of interest, where clinicians found 
+most valuable for SOZ localization (the period before seizure and immediately after seizure onset), and performed a nested CV of RF models. The efficacy of each proposed feature was evaluated based on how well the trained RF model is able to predict the surgical outcomes. We tested our hypotheses stated above by computing a probability of success from each feature heatmap for each patient and estimated the distribution differences of the predicted probability of success, or confidence scores (CS), between various clinical covariates.
+Spatiotemporal feature heatmap interpretability. To determine how valid the 
+output probability values are, we first computed a calibration curve, which told us how well calibrated the probability values were. We furthermore compared the calibration curves across neural fragility, spectral features and graph metrics. With relatively good discrimination measured by the AUC and good calibration, we were able to then compare the CS across CC scores, Engel class and ILAE scores. Since epilepsy and reasons for failed surgeries are so complex, these are clinical methods for stratifying patient groups based on observed etiology. We analyzed how the success probability differs across each of these categories. In addition, we looked at how the success probabilities might differ across other clinical variables, such as sex (male versus female), handedness (right versus left), epilepsy onset age (years) and age during surgery (years).
+Qualitatively reading off a spatiotemporal heatmap is highly interpretable, 
+as one can match raw iEEG segments to certain time periods in the heatmap. For every patient, the time-varying quantile signals (from 10th to the 100th) of 
+the SOZ and the SOZ
+C were computed for every iEEG heatmap, as specified in 
+‘Experimental design’ above. We used permutation feature importance sampling to obtain a relative weighting of each signal over time and how important it was in 
+allowing the RF to correctly determine surgical outcome. This was visualized as a heatmap showing the mean and standard deviation importance scores of the SOZ and SOZ
+C statistics, as shown in Extended Data Fig. 7. In addition, we claim that 
+human interpretability of the spatiotemporal heatmap relies on contrast between 
+the SOZ and SOZC regions in successful outcomes. Using the results of the feature importance permutation test, we computed for every heatmap an interpretability 
+ratio, which was defined as follows:
+I=FSOZ(90th)
+FC
+SOZ(90th)
+where I is the interpretability ratio for the feature heatmap F  for a specific subject. 
+FSOZ(90th) is the 90th quantile and above feature values of the S OZ, and FSOZC 
+(90th) is for the SOZC. This ratio is then stratified according to surgical outcome, 
+which we expect higher ratios for successful outcomes and lower ratios for failed outcomes. We quantified this difference using Cohen’s D  effect size and Mann–
+Whitney U-test P values (see ‘Statistical analysis—hypothesis testing’).
+Fragility heatmaps are more interpretable than all other EEG feature maps. We can parse the RF model to determine important aspects of the spatiotemporal heatmap that are important in predicting surgical outcome. To do so, we performed permutations on the heatmap inputs to the RF models to measure their relative importance over space and time. We observed that the AUC metric was affected primarily by a combination of the highest (90th quantiles and above) neural fragility values of both the SOZ and SOZ
+C contacts (Extended Data Fig. 7). 
+The SOZC neural fragility as much as 10 s before seizure onset affected the AUC as 
+did neural fragility of the SOZ immediately at seizure onset. For both the SOZ and the SOZ
+C fragility distributions, the 80th quantile and below did not contribute 
+to the predictive power. In different patients across different clinical centers, the practice of marking seizure onset times can vary due to varying methodologies
+21. 
+As a result, in the SOZC, there was some variation in terms of which time point in 
+the heatmap mattered most.
+Although strong predictive capabilities of an EEG marker of the SOZ are 
+promising, it is also important that the marker be presented in an interpretable manner to clinicians. We next show how fragility heatmaps are the most interpretable over all baseline features. In Extended Data Fig. 9a, there are two heatmaps computed for the same seizure event in patient 01: one is a beta-band map (left) and one is a neural fragility map (right). Both maps are normalized across channels and both are computed with similar sliding windows. However, less contacts ‘stand out’ as pathological in the beta-band heatmap before seizure onset, with the majority of the map being different shades of blue. In contrast, in the fragility heatmap, one contact (ATT1 from Fig. 4) is fragile the entire duration before seizure onset (solid white line), and then a few more contacts become fragile after the electrographic onset of the seizure. These fragile areas that ‘pop out’ in the heatmap as red-hot areas occur in the clinically annotated SOZ and this patient had successful surgery outcomes.
+To quantify interpretability, we computed an interpretability ratio: the ratio 
+of the feature values in the 90th quantile between the SOZ and the SOZ
+C over the 
+section of data used by the RF model of the feature. This measures the contrast that one sees between the extreme values in the SOZ versus the extreme values they see in the SOZ
+C. The larger the ratio, then the more contrast the map will 
+have. In Extended Data Fig. 9b, we show that the effect size difference between successful and failed outcomes of this interpretability ratio is largest in neural fragility when compared to all baseline features. It is well known that RF models are scale-invariant
+71, so it is plausible that there are portions of heatmaps that 
+distinguish one channel from another that can be parsed out via a decision tree and not the naked eye, which leads to high AUC values in the beta-band representation in Fig. 5 . For example a decision tree can discriminate between 
+0.3000 and 0.2995, which on a normalized color-scale is difficult to parse by visual inspection. Conversely, neural fragility shows marked differences between the clinically annotated SOZ (red electrodes on the y  axis) and the actual fragility 
+values even before seizure onset.
+Reporting Summary. Further information on research design is available in the 
+Nature Research Reporting Summary linked to this article.
+Data availability
+We also released the raw iEEG data for patients from NIH, UMH, UMMC, and 
+JHH in the OpenNeuro repository in the form of BIDS-iEEG (https://openneuro.
+org/datasets/ds003029). Due to restrictions on data sharing from CClinic, we were 
+unable to release the raw iEEG data that we received from this site. Dataset from CClinic is available upon request from authors at the CClinic. Source data are provided with this paper.
+Code availability
+All main figures of the paper can be reproduced using https://doi.org/10.34747/eagk-r334
+77. We include a jupyter notebook written in Python to help reproduce 
+figures. An example of neural fragility being run on patient 01 can be shared upon request due to licensing restrictions.The neural fragility algorithm has been implemented in a FDA 510k approved software medical device (current 510k number: K201910). More information will be available at www.neurologicsolutions.co . Otherwise, please contact 
+corresponding authors for more information regarding a clinical demonstration.
+NAturE NEur OSCIENCE | www.nature.com/natureneuroscience
+Articles NaTUrE NEUrOScIENcEreferences
+ 51. Hawasli, A. H., Bandt, S. K., Hogan, R. E., Werner, N. & Leuthardt, E. C. 
+Laser ablation as treatment strategy for medically refractory dominant insular epilepsy: therapeutic and functional considerations. Stereotact. Funct. Neurosurg.  92, 397–404 (2014).
+ 52. Gonzalez-Martinez, J. & Lachhwani, D. Stereoelectroencephalography in children with cortical dysplasia: technique and results. Childs Nerv. Syst. 30, 
+1853–1857 (2014).
+ 53. See, S. J. et al. Surgical outcomes in patients with extratemporal epilepsy and subtle or normal magnetic resonance imaging findings. Neurosurgery 73, 
+68–76 (2013).
+ 54. Kemp, B., Värri, A., Rosa, A. C., Nielsen, K. D. & Gade, J. A simple format for exchange of digitized polygraphic recordings. Electroencephalogr. Clin. Neurophysiol.  82, 391–393 (1992).
+ 55. Holdgraf, C. et al. iEEG-BIDS, extending the Brain Imaging Data  Structure specification to human intracranial electrophysiology. Sci. Data 6, 
+102 (2019).
+ 56. Gorgolewski, K. J. et al. The brain imaging data structure, a format for organizing and describing outputs of neuroimaging experiments. Sci. Data 3, 
+160044 (2016).
+ 57. Gramfort, A. et al. MEG and EEG data analysis with MNE-Python. Front. Neurosci. 7, 267 (2013).
+ 58. Gramfort, A. et al. MNE software for processing MEG and EEG data. NeuroImage 86, 446–460 (2014).
+ 59. Appelhoff, S. et al. MNE-BIDS: MNE-Python + BIDS = easy dataset interaction. Zenodo  https://doi.org/10.5281/zenodo.3891836 (2020).
+ 60. Van Der Walt, S., Colbert, S. C. & Varoquaux, G. The NumPy array: a structure for efficient numerical computation. Comput. Sci. Eng. 13,  
+22–30 (2011).
+ 61. Virtanen, P . et al. SciPy 1.0: fundamental algorithms for scientific computing in Python. Nat. Methods  17, 261–272 (2020).
+ 62. Hunter, J. D. Matplotlib: a 2D graphics environment. Comput. Sci. Eng. 9, 
+99–104 (2007).
+ 63. Waskom, M. seaborn: statistical data visualization. J. Open Source Softw. 
+https://doi.org/10.21105/joss.03021 (2021).
+ 64. Allen, M., Poggiali, D., Whitaker, K., Marshall, T. R. & Kievit, R. A. Raincloud plots: a multi-platform tool for robust data visualization [version 1; peer review: 2 approved]. Wellcome Open Res. 4, 63 (2019).
+ 65. Ho, J., Tumkaya, T., Aryal, S., Choi, H. & Claridge-Chang, A. Moving  
+beyond P values: data analysis with estimation graphics. Nat. Methods  16, 
+565–566 (2019).
+ 66. Vallat, R. Pingouin: statistics in Python. J. Open Source Softw. 3, 1026 (2018).
+ 67. Raschka, S. MLxtend: providing machine learning and data science utilities and extensions to Python’s scientific computing stack. J. Open Source Softw. 3, 
+638 (2018).
+ 68. Pedregosa, F. et al. Scikit-learn: machine learning in Python. J. Mach. Learn. Res. 12, 2825–2830 (2011).
+ 69. Mezić, I. Spectral properties of dynamical systems, model reduction and decompositions. Nonlinear Dyn.  41, 309–325 (2005).
+ 70. Schmid, P . Dynamic mode decomposition of numerical and experimental data. J. Fluid Mech. 656, 5–28 (2010).
+ 71. Breiman, L. Random forests. Mach. Learn. 45, 5–32 (2001).
+ 72. Perry, R. et al. Manifold forests: closing the gap on neural networks. Preprint at https://arxiv.org/abs/1909.11799 (2019).
+ 73. & Tomita, T. M. et al. Sparse projection oblique randomer forests. J. Mach. Learn. Res. 21, 1–39 (2020).
+ 74. Skocik, M., Collins, J., Callahan-Flintoft, C., Bowman, H. & Wyble, B. I tried a bunch of things: the dangers of unexpected overfitting in classification. Preprint at bioRxiv https://doi.org/10.1101/078816 (2016). 75. Alyakin, A., Qin, Y . & Priebe, C. E. LqRT: Robust hypothesis testing of location parameters using Lq-Likelihood-Ratio-Type test in Python. Preprint at https://arxiv.org/abs/1911.11922 (2019).
+ 76. Qin, Y . & Priebe, C. E. Robust hypothesis testing via Lq-likelihood. Statistica Sinica  27, 1793–1813 (2017).
+ 77. Li, A. et al. Neural fragility as an EEG marker of the seizure onset zone. Figshare  https://doi.org/10.34747/eagk-r334 (2021).
+Acknowledgements
+A.L. is supported by NIH T32 EB003383, the NSF GRFP (DGE-1746891), the Arcs 
+Chapter Scholarship, the Whitaker Fellowship and the Chateaubriand Fellowship. S.V .S. is supported by NIH R21 NS103113, the Coulter Foundation, the Maryland Innovation Initiative, a US NSF Career Award 1055560 and the Burroughs Wellcome Fund CASI Award 1007274. E.J. is supported by NIA K23 AG063899. I.C. was partially 
+supported by NIH R25NS108937-02. K.A.Z. and S.I. are supported by the Intramural Research Program of the National Institute of Neurological Disorders and Stroke. S.C. is 
+supported by 1UL1TR003098-01 and the UMB Institute for Clinical and Translational Research. J. Hopp is supported by NINDS 1 UO1 NS08803401—Established Status Epilepticus Treatment Trial (ESETT), MII TA Grant 20180828 TEDCO—EpiWatch: 
+A Mobile Health Application for Epilepsy Management and U10 NS058932-01 NIH 
+NINDS—‘Neurological Emergencies Treatment Trials (NETT) Network Clinical/Site Hub’ . Computational resources were also provided by the Maryland Advanced Research Computing Center (MARCC). The authors would like to thank C. Priebe for useful discussions on statistical analyses, J. Vogelstein for introducing A.L. to the concepts of 
+structured RFs, S. Kim and R. J. Smith for very helpful reviews of the manuscript and M. 
+Breault for help in creating brain figures.
+Author contributions
+A.L., J.G.-M. and S.V .S. conceived the project. A.L., I.C., D.B., J.J., A.O.C., A.M.K., J. Hopp, S.C., J. Haagensen, E.J., W .A., N.C., Z.F., J.B. and J.G.-M. collected and supervised 
+human epilepsy recordings and processes related to IRB at their respective centers. I.C., 
+D.B., J.J., A.O.C. and A.M.K. oversaw data from UMHC. J. Hopp, S.C. and J. Haagensen oversaw data from UMMC. E.J., W .A. and N.C. oversaw data from JHH. S.I. and K.A.Z. oversaw data from the NIH. Z.F., J.B. and J.G.-M. oversaw data from CClinic. A.L. 
+organized the data from all centers, converted data to BIDS, conducted the analyses and 
+generated the figures. A.L. and S.V .S. wrote the paper with input from the other authors. C.H. helped develop the structured RF and statistical analyses.
+Competing interests
+The authors declare the following competing interests: A.L., S.V .S. and J.G.-M. have equity in a startup, Neurologic Solutions Co., related to epilepsy data analysis. W .A. is on the Board of Advisors of Longeviti Neuro Solutions and a Compensated Consultant 
+at Globus Medical. J. Hopp reports the following disclosures: personal compensation: 
+royalties from publishing (UpToDate, Inc.); honoraria from speaking engagements: J. Kiffin Penry Epilepsy Education Programs; expert witness consultation: Gerolamo 
+McNulty Divis & Lewbart A Professional Corporation Attorneys At Law Goodell, 
+Devries, Leech & Dann, LLP . All other authors declare no competing interests.
+Additional information
+Extended data is available for this paper at https://doi.org/10.1038/s41593-021-00901-w .
+Supplementary information The online version contains supplementary material 
+available at https://doi.org/10.1038/s41593-021-00901-w .
+Correspondence and requests for materials should be addressed to A.L.
+Peer review information Nature Neuroscience thanks the anonymous reviewers for their 
+contribution to the peer review of this work.
+Reprints and permissions information is available at www.nature.com/reprints.
+NAturE NEur OSCIENCE | www.nature.com/natureneuroscience
+Articles NaTUrE NEUrOScIENcE
+Extended Data Fig. 1 | Computational experiment setup for all candidate SOZ features and statistical analysis. Computational experiment setup for all 
+candidate SOZ features and statistical analysis - (a) Any candidate feature that can produce a spatiotemporal heatmap was computed from EEG data and then partitioned by the clinically annotated SOZ  set and the complement, SOZ
+C (that is non-SOZ electrodes) to compute a confidence statistic measuring 
+the feature’s belief of the clinician’s hypothesis. Here FSOZ and FSOZC were the feature values within their respective sets. fθ is the function depending on 
+the random Forest model parameters, θ that maps the statistics of the FSOZ and FSOZC to a confidence statistic. An ideal feature would have high and low 
+confidence for success and failed outcomes respectively. Each point on the final CS distribution comparisons represent one patient. (b) A more detailed schematic of how our proposed fragility and baseline features were computed from EEG data for a single snapshot of EEG data. See fragility methods section for description of x, A and Δ.
+NAturE NEur OSCIENCE | www.nature.com/natureneuroscience
+Articles NaTUrE NEUrOScIENcE
+Extended Data Fig. 2 | Entire fragility heatmap of seizures in successful and failed surgical outcomes. Entire fragility heatmap of seizures in successful 
+and failed surgical outcomes - Fragility heatmaps with electrodes on y-axis and time on x-axis with the dashed white-lines denoting seizure onset and offset. Shows a period of 30 seconds before seizure onset and 30 seconds after seizure offset. (a) Shows clinically annotated maps of the implanted ECoG/SEEG electrodes with red denoting SOZ contacts. (b) shows spatiotemporal fragility heatmaps for example of successful outcome (Patient_01), and failed outcome (Patient_26 and Patient_40). The color scale represents the amplitude of the normalized fragility metric, with closer to 1 denoting fragile regions and closer to 0 denoting relatively stable regions. The contacts in red and orange are part of the SOZ and rZ, respectively as defined in 4 section. Note that the red contacts are also part of the rZ. Within the seizures, estimating the linear systems are not as stable, which can be seen by fragility ‘everywhere’ in the map. Visualized with T urbo continuous colormap. Best seen if viewed in color.
+NAturE NEur OSCIENCE | www.nature.com/natureneuroscience
+Articles NaTUrE NEUrOScIENcE
+Extended Data Fig. 3 | See next page for caption.
+NAturE NEur OSCIENCE | www.nature.com/natureneuroscience
+Articles NaTUrE NEUrOScIENcEExtended Data Fig. 3 | Pooled fragility distribution analysis for all patients. Pooled fragility distribution analysis for all patients - failed (a), no surgery (b) 
+and successful surgery (c) datasets. Each SOZ (soz in blue bars) and SOZC (‘nsoz’ in orange bars) distribution per patient was bootstrap sampled (see 4 
+for more information on sampling) and then compared using the one-sided Mann-Whitney U test. The corresponding test yielded a statistic of 2776334 (PValue = 0.355) for the failed patient outcomes and a statistic of 36836739 (PValue = 3.326e-70) for the successful patient outcomes. The patients without resection were not included in the analysis comparing to outcome, but these patients can present as interesting case studies where the SOZ was hypothetically localizable, but perhaps was too close to eloquent areas.
+NAturE NEur OSCIENCE | www.nature.com/natureneuroscience
+Articles NaTUrE NEUrOScIENcE
+Extended Data Fig. 4 | See next page for caption.
+NAturE NEur OSCIENCE | www.nature.com/natureneuroscience
+Articles NaTUrE NEUrOScIENcEExtended Data Fig. 4 | Patient-specific SOZ vs SOZC neural fragility near seizure onset. Patient-specific SOZ vs SOZC neural fragility near seizure onset 
+- red SOZ vs black SOZC signals for patients presented in Figure 4: Patient_01(a), Patient_26(b), Patient_40(c). For each patient, the ictal snapshots 
+available are visualized around seizure onset with 5 seconds before onset until the first 20% of the seizure. Not necessarily all electrodes in the clinically 
+annotated SOZ are part of the EZ when the patient had a successful outcome. Therefore, if neural fragility had value in contrasting true EZ electrodes from non-EZ electrodes, then any extra electrodes clinically annotated in the SOZ should have relative lower fragility. The lines represent mean +/- sem.
+NAturE NEur OSCIENCE | www.nature.com/natureneuroscience
+Articles NaTUrE NEUrOScIENcE
+Extended Data Fig. 5 | See next page for caption.
+NAturE NEur OSCIENCE | www.nature.com/natureneuroscience
+Articles NaTUrE NEUrOScIENcEExtended Data Fig. 5 | Pooled-patient per clinical center SOZ vs SOZC neural fragility. Pooled-patient per clinical center SOZ vs SOZC neural fragility - r ed 
+SOZ vs black SOZC fragility signals for pooled patients within each of the five centers with successful (a) and failed outcomes (b) for NIH (n=14), JHH 
+(n=4), CC (n=61), UMH (n=5), and UMMC (n=7) (top to bottom respectively). Note UMMC only had successful outcomes, so there was28 no curve for 
+the failures. Seizure periods were resampled and normalized to 100 samples for averaging and viewing purposes. In JHH and UMH, there were only one and two patients in successful outcomes respectively. The lines represent mean +/- sem.
+NAturE NEur OSCIENCE | www.nature.com/natureneuroscience
+Articles NaTUrE NEUrOScIENcE
+Extended Data Fig. 6 | Comparison of classification models using different features. Comparison of classification models using different features - (a) 
+The r OC curve over 10 folds of cross-validation of the held-out test set obtained by applying a random Forest model onto the spatiotemporal heatmaps 
+to predict surgical outcome (see 4). Fragility and the top-3 baseline features in terms of AUC are visualized. The shaded area represents the standard deviation of the curve obtained by linear interpolation for visualization purposes. The AUC of fragility obtained a 0.88 +/- 0.064 over the 10 standard deviation with a relative improvement of 7.2% improvement in AUC compared to the next best feature representation (that is the beta frequency band). At the Y ouden point (stars), neural fragility obtains a balanced accuracy score of 0.76 +/- 0.06, and an improvement of 0.32 in TPr and 0.32 in FPr compared to the clinical operating point (red star). (b) The average Pr curve showing that fragility is better then the top 3 features by at least an average precision of 0.04. (c) A paired estimation plot showing how the same test set of patients differed in AUC depending on whether it was using the fragility, or beta feature heatmap representation. The paired Cohen’s D effect size was computed at -0.975 (-1.97 to -0.29; 95% CI). The p-values associated with the difference between Neural Fragility and the Beta frequency band were 0.0204, 0.0273, and 0.0225 using the one-sided Wilcoxon rank-sum test, permutation test, and the paired student t-test respectively. (d) Calibration curve showing the fraction of actual successful surgical outcomes on the y-axis vs the average CS output on the x-axis. The curve measures how calibrated the predicted success probability values are to the true risk stratification of the patient population. The closer a curve is to the y = x line, then the more calibrated a model is. It is quantified by the Brier-loss (closer to 0 is better), which is shown in the legend, and is significantly lower then the next best feature (an improvement of 15%). The shaded region represents 95% confidence interval of two standard deviations.
+NAturE NEur OSCIENCE | www.nature.com/natureneuroscience
+Articles NaTUrE NEUrOScIENcE
+Extended Data Fig. 7 | Estimated feature importance (mean and stdev) of the associated fragility heatmap used estimated using permutation. 
+Estimated feature importance (mean and stdev) of the associated fragility heatmap used estimated using permutation - The metric of interest was the concordance statistic (that is AUC) of the r OC curve. The original feature map is transformed into a 20dimensional set of time-varying statistics of its 
+SOZ and SOZ
+C electrodes describing the quantiles of the spatiotemporal heatmap (10% - 100% quantiles). This time-varying summary allows these 
+heatmaps to be pooled together across subjects when training a random Forest classifier as described in Methods.
+NAturE NEur OSCIENCE | www.nature.com/natureneuroscience
+Articles NaTUrE NEUrOScIENcEExtended Data Fig. 8 | Neural fragility vs frequency power values. Neural fragility vs frequency power values - Fragility versus frequency power in the 
+delta, theta, alpha, beta, gamma and highgamma band for Patient_01, Patient_26, and Patient_40. For band definitions, refer to Methods - Baseline features - spectral features. Every point represents the spectral power and neural fragility value from a randomly chosen window and electrode from one of the patients. No significant correlation is seen or computed from the data. Each spectral feature and fragility are normalized as described in Methods.
+NAturE NEur OSCIENCE | www.nature.com/natureneuroscience
+Articles NaTUrE NEUrOScIENcE
+Extended Data Fig. 9 | Interpretability ratio of feature heatmaps. Interpretability ratio of feature heatmaps - a) T wo heatmap examples of a seizure 
+snapshot of Patient_01 (NIH treated, ECoG, CC1, Engel I, ILAE 1) with the beta frequency band (left) and the neural fragility heatmap (right). Both colormaps show the relative feature value normalized across channels over time. The black line denotes electrographic seizure onset. (b) A box plot of the interpretability ratio that is defined in r esults Section 8.12 computed for every feature. The y-axis shows an effect size difference between the 
+interpretability ratios of success and failed outcomes. The interpretability ratio for each patient’s heatmap is defined as the ratio between the feature values in the two electrode sets (SOZ/ SOZ
+C). Neural fragility is significantly greater then the beta band (alpha Level=0.05).
+NAturE NEur OSCIENCE | www.nature.com/natureneuroscience
+Articles NaTUrE NEUrOScIENcE
+Extended Data Fig. 10 | Neural fragility correlation against non-epileptic clinical covariates. Neural fragility correlation against non-epileptic clinical 
+covariates - Fragility success probabilities (denoted as ‘Confidence Statistic’ in y-axes) split by clinical factors, such as handedness (a), gender (b), ethnicity (c) and age at surgery (d). Not all patients had data for each of these categories, so the subset of available data was used. Note the sample sizes vary across different groups shown. For ethnicity, we also had 1 Asian subject, but left it out because the permutation effect size estimation procedure does not work for 1 sample. Effect sizes were estimated using the permutation test and Mann Whitney U test described in Methods. The corresponding effect sizes and p-values were (0.1/0.99) for handedness, and (0.12/0.7) for gender. The pvalue was computed using the one-sided Mann-Whitney U test. The slope was negligibly close to 0 for surgery age linear fit. There was no relatively notable trend in the data related to ethnicity. The significant Cohen’s D effect size difference is primarily due to the low sample sizes in non-Caucasian ethnicities. The error bars represent 95% confidence interval specified by 2 standard deviations.
+NAturE NEur OSCIENCE | www.nature.com/natureneuroscience
+1 nature research  |  reporting summary April 2020
+Corresponding author(s): Adam Li
+Last updated by author(s): Jun 5, 2021
+Reporting Summary
+Nature Research wishes to improve the reproducibility of the work that we publish. This form provides structure for consistency and transparency 
+in reporting. For further information on Nature Research policies, see our Editorial Policies  and the Editorial Policy Checklist .
+Statistics
+For all statistical analyses, confirm that the following items are present in the figure legend, table legend, main text, or Methods section.
+n/a Confirmed
+The exact sample size ( n) for each experimental group/condition, given as a discrete number and unit of measurement
+A statement on whether measurements were taken from distinct samples or whether the same sample was measured repeatedly
+The statistical test(s) used AND whether they are one- or two-sided 
+Only common tests should be described solely by name; describe more complex techniques in the Methods section.
+A description of all covariates tested
+A description of any assumptions or corrections, such as tests of normality and adjustment for multiple comparisons
+A full description of the statistical parameters including central tendency (e.g. means) or other basic estimates (e.g. regression coefficient) 
+AND variation (e.g. standard deviation) or associated estimates of uncertainty (e.g. confidence intervals)
+For null hypothesis testing, the test statistic (e.g. F, t, r) with confidence intervals, effect sizes, degrees of freedom and P value noted 
+Give P values as exact values whenever suitable.
+For Bayesian analysis, information on the choice of priors and Markov chain Monte Carlo settings
+For hierarchical and complex designs, identification of the appropriate level for tests and full reporting of outcomes
+Estimates of effect sizes (e.g. Cohen's d, Pearson's r), indicating how they were calculated
+Our web collection on statistics for biologists  contains articles on many of the points above.
+Software and code
+Policy information about availability of computer code
+Data collection European Data Format, Brain Vision format, BIDS 1.4.0
+Data analysis Python 3.6+, mne-bids (>=0.5), mne-python (>=0.21.2), scikit-learn >=0.23), numpy (>=1.19.4), scipy (>=1.4), dabest (>=0.3.1), pybv (>=0.5)
+For manuscripts utilizing custom algorithms or software that are central to the research but not yet described in published literature, software must be made available to editors and 
+reviewers. We strongly encourage code deposition in a community repository (e.g. GitHub). See the Nature Research  guidelines for submitting code & software  for further information.
+Data
+Policy information about availability of data
+All manuscripts must include a data availability statement . This statement should provide the following information, where applicable: 
+- Accession codes, unique identifiers, or web links for publicly available datasets 
+- A list of figures that have associated raw data 
+- A description of any restrictions on data availability
+We also released the raw iEEG data for patients from NIH, UMH, UMMC, and JHH in the OpenNeuro repository in the form of BIDS-iEEG (https://openneuro.org/
+datasets/ds003029). Due to restrictions on data sharing from CClinic, we were unable to release the raw iEEG data that we received from this site. Dataset from 
+CClinic is available upon request from authors at the CClinic.
+2 nature research  |  reporting summary April 2020 Field-specific reporting
+Please select the one below that is the best fit for your research. If you are not sure, read the appropriate sections before making your selection.
+Life sciences Behavioural & social sciences  Ecological, evolutionary & environmental sciences
+For a reference copy of the document with all sections, see nature.com/documents/nr-reporting-summary-flat.pdf
+Life sciences study design
+All studies must disclose on these points even when the disclosure is negative.
+Sample size Sample sizes were determined by attempting to gather as many patients as possible from multiple clinical centers. When possible, we sought 
+to have a balance of lesional, temporal, extra-temporal and multi-focal epilepsy patients, along with a relatively proportional number of 
+success and failed epilepsy surgery patients (success = seizure freedom, failure = seizure recurrence). We collected 100 patients and then 
+removed 9 due exclusion criterion. No statistical methods were used to pre-determine sample sizes but our sample sizes are larger then those 
+reported in previous publications.
+Data exclusions Data snapshots were excluded if there was excessively noisy extra operative recordings. Patients exhibiting the following criteria were 
+excluded: no seizures recorded, pregnant, sampling rate less than 250 Hz, previous surgeries more then 6 months before, and no surgery 
+performed (possibly from SOZ localizations in eloquent areas).
+Replication 10-fold cross-validation was used to make sure that the study was robust across different subsets of the patient population. The experiments 
+were replicated and repeated at least two times. Random seeds were fixed for training classifiers. The training, testing and validation patient 
+sets were fixed apriori to running these experiments. All replications of experiments yielded the same result in a computational Dockerized 
+environment.
+Randomization Statistical analysis was done using  nested cross-validation, splitting training, validation and testing groups based on subjects, while sampling 
+proportionally the different epilepsy etiologies. We set aside 60% of subjects for training, 10% for validation and then 30% as a held-out test 
+set. We used a heuristic of attempting to sample approximately randomly from clinical complexity 1-4 as defined in the paper. This heuristic 
+attempted to place at least 25% of the subjects in the training, validation and held-out test set for each clinical complexity. Besides this 
+covariate, the training, validation and held-out test set were determined randomly. We found that this performed slightly better for all 
+features compared to random sampling. We performed patient-level CV, ensuring that no patient was in multiple splits of the dataset (i.e. any 
+one patient is only in the train, test, or lock-box dataset). 
+Blinding Blinding was done with respect to the authors that performed analysis. Clinical collaborators that collected the data were unable to be 
+blinded because this was a retrospective study on epilepsy patients already treated. Clinicians had to parse their respective clinical servers to 
+see if patients met the exclusion criterion and had data that was stored properly to be included in this study. However, all clinicians had at 
+some point treated these patients in the past. Therefore, 100% blinding of clinicians to the characteristics of the patient collected was not 
+feasible.
+Reporting for specific materials, systems and methods
+We require information from authors about some types of materials, experimental systems and methods used in many studies. Here, indicate whether each material, 
+system or method listed is relevant to your study. If you are not sure if a list item applies to your research, read the appropriate section before selecting a response. 
+Materials & experimental systems
+n/a Involved in the study
+Antibodies
+Eukaryotic cell lines
+Palaeontology and archaeology
+Animals and other organisms
+Human research participants
+Clinical data
+Dual use research of concernMethods
+n/a Involved in the study
+ChIP-seq
+Flow cytometry
+MRI-based neuroimaging
+Human research participants
+Policy information about studies involving human research participants
+Population characteristics Patients were all diagnosed with epilepsy, and range from 3 years of age to 65. There were 44 males and 43 females (4 
+unknown sex) of the 91 participants. There were 44 surgical successes and 47 surgical failures.
+Recruitment Patients had undergone epilepsy monitoring at the clinical centers involved. Because patients that undergo epilepsy 
+monitoring may have other co morbidities, which could bias results by affecting their neural signals. Moreover, this was a 
+3 nature research  |  reporting summary April 2020 retrospective study, and thus we collected patients from a variety of different clinical centers. Each clinical center may have 
+varying clinical practices that can have different biases. In general, the field assumes that collecting multi-center datasets are 
+better then just from one center for the purposes of capturing this variability. Other sources of variation perhaps came from 
+the times at which patients were monitored. Electrode equipment is steadily improving, so differences in recording 
+equipment could bias results (i.e. better equipment get better results). In this study, we were unable to obtain exact 
+equipment specifications for each subject besides general sampling rate and other electrode metadata.
+Ethics oversight All data were acquired with approval of local Institutional Review Board (IRB) at each clinical institution: UMMC, UMH, NIH, 
+JHH and CClinic. Informed consent was given at each clinical center. UMH data collection was approved by University of 
+Miami Human Subject Research Office - Medical Sciences IRB. CClinic by Cleveland Clinic Institutional Review Board. JHH by 
+Johns Hopkins IRB. UMMC by IRB of the University of Maryland School of Medicine. NIH by the National Institute of Health 
+IRB. The acquisition of data for research purposes was completed with no impact on the clinical objectives of the patient stay. 
+Digitized data were stored in an IRB-approved database compliant with Health Insurance Portability and Accountability Act 
+(HIPAA) regulations.
+Note that full information on the approval of the study protocol must also be provided in the manuscript.

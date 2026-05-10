@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EEG Anomaly Detection | EP4DIS</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar glass-panel">
+            <div class="sidebar-header">
+                <h1>EP4DIS</h1>
+                <p>EEG Anomaly Framework</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" data-target="visualizer-view">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    Interactive Visualizer
+                </button>
+                <button class="nav-btn" data-target="edu-hub-view">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    Educational Hub
+                </button>
+            </nav>
+
+            <div class="control-panel" id="control-panel">
+                <h3>Analysis Configuration</h3>
+                <label for="patient-select">Select Patient & Run</label>
+                <select id="patient-select" class="dropdown">
+                    <option value="">Loading datasets...</option>
+                </select>
+                <button id="analyze-btn" class="primary-btn" disabled>
+                    <span id="btn-text">Run Analysis</span>
+                    <span id="btn-loader" class="loader hidden"></span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- View: Interactive Visualizer -->
+            <section id="visualizer-view" class="view-section active">
+                <header class="view-header">
+                    <h2>Live EEG Signal Analysis</h2>
+                    <p>Comparing univariate, multivariate, and Bayesian state-estimation models on clinical data.</p>
+                </header>
+
+                <div class="metrics-grid">
+                    <div class="metric-card glass-panel arima-theme">
+                        <h4>ARIMA</h4>
+                        <div class="metric-stats">
+                            <div><span class="stat-value" id="arima-anom">-</span> <span class="stat-label">Anomalies</span></div>
+                            <div><span class="stat-value" id="arima-time">-</span> <span class="stat-label">Seconds</span></div>
+                        </div>
+                    </div>
+                    <div class="metric-card glass-panel armax-theme">
+                        <h4>ARMAX</h4>
+                        <div class="metric-stats">
+                            <div><span class="stat-value" id="armax-anom">-</span> <span class="stat-label">Anomalies</span></div>
+                            <div><span class="stat-value" id="armax-time">-</span> <span class="stat-label">Seconds</span></div>
+                        </div>
+                    </div>
+                    <div class="metric-card glass-panel kalman-theme">
+                        <h4>Kalman Filter</h4>
+                        <div class="metric-stats">
+                            <div><span class="stat-value" id="kalman-anom">-</span> <span class="stat-label">Anomalies</span></div>
+                            <div><span class="stat-value" id="kalman-time">-</span> <span class="stat-label">Seconds</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container glass-panel">
+                    <div id="plotly-chart" class="plotly-canvas">
+                        <div class="chart-placeholder">Select a dataset and run the analysis to view the EEG signal.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- View: Educational Hub -->
+            <section id="edu-hub-view" class="view-section hidden">
+                <header class="view-header">
+                    <h2>Educational Hub & Project Background</h2>
+                    <p>Based on the EP4DIS Research Project Proposal</p>
+                </header>
+
+                <div class="edu-grid">
+                    <article class="edu-card glass-panel">
+                        <h3>1. Introduction to EEG & Data Strategy</h3>
+                        <p>Electroencephalography (EEG) and Intracranial EEG (iEEG) measure electrical activity in the brain. Epileptic seizures manifest as chaotic, hyper-synchronous states known as the <em>ictal</em> state, distinct from the normative <em>inter-ictal</em> baseline.</p>
+                        <p><strong>Methodology:</strong> This project uses the <code>OpenNeuro ds003029</code> multicenter dataset. The BIDS-formatted raw data undergoes 1-40Hz band-pass filtering and chronological epoching to perfectly isolate the transition from the inter-ictal baseline to the seizure onset, while mathematically rejecting biological artifacts (like ocular movements).</p>
+                    </article>
+
+                    <article class="edu-card glass-panel">
+                        <h3>2. Model Theory & Architecture</h3>
+                        <div class="theory-block">
+                            <h4>ARIMA (Auto-Regressive Integrated Moving Average)</h4>
+                            <p>A classic linear model that creates a stationary baseline using differencing. However, its univariate nature often fails to adapt to the fast, chaotic transitions of an ictal event, causing unacceptable false positive rates due to normal artifacts.</p>
+                        </div>
+                        <div class="theory-block">
+                            <h4>ARMAX (ARIMA with Exogenous Inputs)</h4>
+                            <p>Models the spatial dynamics of the brain network. By feeding the signal from one electrode as an exogenous 'X' input into a neighboring electrode's equation, ARMAX can detect the spatial propagation of a seizure earlier.</p>
+                        </div>
+                        <div class="theory-block">
+                            <h4>Kalman Filter (Recursive Bayesian Estimation)</h4>
+                            <p>The state-of-the-art solution for high-noise environments. It uses a continuous predict-and-update loop to separate the "true" hidden brain state from massive observational noise, vastly outperforming linear models in recognizing true state transitions.</p>
+                        </div>
+                    </article>
+
+                    <article class="edu-card glass-panel">
+                        <h3>3. Project Retrospective & Future Roadmap</h3>
+                        <p><strong>Challenges Faced:</strong> Handling truncated multi-gigabyte OpenNeuro downloads and missing 3D spatial electrode coordinates required the engineering of robust fallback and synthetic injection pipelines during prototyping.</p>
+                        <p><strong>Roadmap & Risks:</strong> Future expansions could integrate real-time EEG streaming and Deep Learning/Transformer models. The primary risk remains the high false-positive rate in highly artifacted unseen clinical environments and patient data privacy concerns.</p>
+                    </article>
+
+                    <article class="edu-card glass-panel">
+                        <h3>4. Reference Library & Bibliography</h3>
+                        <ul class="ref-list">
+                            <li><strong>Li, A., et al. (2021)</strong> 'Neural fragility as an EEG marker of the seizure onset zone', <em>Nature Neuroscience</em>, 24(10), pp. 1465-1474.</li>
+                            <li><strong>Al-Fahoum, A., et al. (2024)</strong> 'Kalman filter-based seizure prediction using concatenated serial-parallel block technique', <em>ResearchGate</em>.</li>
+                            <li><strong>Koirala, A. (2023)</strong> 'Spectral estimation of electroencephalogram signal using ARMAX model and particle swarm optimisation', <em>JACEM</em>.</li>
+                            <li><strong>Nanda, A., et al. (2024)</strong> 'The survey of EEG signal analysis with ARIMA model', <em>Journal of Electrical Systems</em>.</li>
+                            <li><strong>Rios, L., et al. (2021)</strong> 'A mixed filtering approach for real-time seizure state tracking...', <em>PMC</em>.</li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

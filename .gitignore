@@ -1,0 +1,23 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Dataset (10.3 GB - too large for Git)
+data/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Build artifacts
+*.npz
+output.txt
+
+# Old presentation versions
+Dataset_Discussion_Presentation.pptx

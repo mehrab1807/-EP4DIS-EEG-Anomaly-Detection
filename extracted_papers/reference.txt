@@ -1,0 +1,143 @@
+Berg, A. T. Identification of pharmacoresistant epilepsy. Neurologic Clinics 27, 1003–1013 (2009).
+Article PubMed PubMed Central Google Scholar 
+Epilepsy: A Public Health Imperative (World Health Organization, 2019).
+Jobst, B. C. Consensus over individualism: validation of the ILAE definition for drug resistant epilepsy. Epilepsy Curr. 15, 172–173 (2015).
+Article PubMed PubMed Central Google Scholar 
+Begley, C. E. & Durgin, T. L. The direct cost of epilepsy in the United States: a systematic review of estimates. Epilepsia 56, 1376–1387 (2015).
+Article PubMed Google Scholar 
+Jehi, L. The epileptogenic zone: concept and definition. Epilepsy Curr. 18, 12–16 (2018).
+Article PubMed PubMed Central Google Scholar 
+Penfield, W. Epileptogenic lesions. Acta Neurol. Psychiatr. Belg. 56, 75–88 (1956).
+CAS PubMed Google Scholar 
+Jobst, B. C., Darcey, T. M., Thadani, V. M. & Roberts, D. W. Brain stimulation for the treatment of epilepsy: brain stimulation in epilepsy. Epilepsia 51, 88–92 (2010).
+Article PubMed Google Scholar 
+Scharfman, H. E. The neurobiology of epilepsy. Curr. Neurol. Neurosci. Rep. 7, 348–354 (2007).
+Article CAS PubMed PubMed Central Google Scholar 
+Gliske, S. V. et al. Universal automated high frequency oscillation detector for real-time, long term EEG. Clin. Neurophysiol. 127, 1057–1066 (2016).
+Article PubMed Google Scholar 
+Shah, P. et al. Local structural connectivity directs seizure spread in focal epilepsy. Preprint at bioRxiv https://doi.org/10.1101/406793 (2018).
+Li, A. et al. Using network analysis to localize the epileptogenic zone from invasive EEG recordings in intractable focal epilepsy. Netw. Neurosci. 2, 218–240 (2018).
+Article PubMed PubMed Central Google Scholar 
+Burns, S. P. et al. Network dynamics of the brain and influence of the epileptic seizure onset zone. Proc. Natl Acad. Sci. USA 111, E5321–E5330 (2014).
+Article CAS PubMed PubMed Central Google Scholar 
+Yaffe, R. B. et al. Physiology of functional and effective networks in epilepsy. Clin. Neurophysiol. 126, 227–236 (2015).
+Article PubMed Google Scholar 
+Khambhati, A. N., Davis, K. A., Lucas, T. H., Litt, B. & Bassett, D. S. Virtual cortical resection reveals push–pull network control preceding seizure evolution. Neuron 91, 1170–1182 (2016).
+Article CAS PubMed PubMed Central Google Scholar 
+Bassett, D. S. & Sporns, O. Network neuroscience. Nat. Neurosci. 20, 353–364 (2017).
+Article CAS PubMed PubMed Central Google Scholar 
+Li, A., Inati, S., Zaghloul, K. & Sarma, S. Fragility in epileptic networks: the epileptogenic zone. in Proc. American Control Conference (IEEE, 2017); https://ieeexplore.ieee.org/abstract/document/7963378
+Li, A. et al. Linear time-varying model characterizes invasive EEG signals generated from complex epileptic networks. in Proc. Annual International Conference of the IEEE Engineering in Medicine and Biology Society 2802–2805 (IEEE, 2017); https://pubmed.ncbi.nlm.nih.gov/29060480/
+Sritharan, D. & Sarma, S. V. Fragility in dynamic networks: application to neural networks in the epileptic cortex. Neural Comput. 26, 2294–2327 (2014).
+Article PubMed Google Scholar 
+Jette, N., Reid, A. Y. & Wiebe, S. Surgical management of epilepsy. CMAJ 186, 997–1004 (2014).
+Article PubMed PubMed Central Google Scholar 
+Engel, J. et al. Early surgical therapy for drug-resistant temporal lobe epilepsy: a randomized trial. JAMA 307, 922–930 (2012).
+Article CAS PubMed PubMed Central Google Scholar 
+Sheikh, S., Nair, D., Gross, R. & Gonzalez Martinez, J. Tracking a changing paradigm and the modern face of epilepsy surgery: a comprehensive and critical review on the hunt for the optimal extent of resection in mesial temporal lobe epilepsy. Epilepsia 60, 1768–1793 (2019).
+Article PubMed Google Scholar 
+Crino, P. B. et al. Increased expression of the neuronal glutamate transporter (EAAT3/EAAC1) in hippocampal and neocortical epilepsy. Epilepsia 43, 211–218 (2002).
+Article CAS PubMed PubMed Central Google Scholar 
+González-Martínez, J. A., Ying, Z., Prayson, R., Bingaman, W. & Najm, I. Glutamate clearance mechanisms in resected cortical dysplasia: Laboratory investigation. J. Neurosurg. 114, 1195–1202 (2011).
+Article PubMed Google Scholar 
+Noebels, J. L. The biology of epilepsy genes. Annu. Rev. Neurosci. 26, 599–625 (2003).
+Article CAS PubMed Google Scholar 
+Bradford, H. F. Glutamate, GABA and epilepsy. Prog. Neurobiol. 47, 477–511 (1995).
+Article CAS PubMed Google Scholar 
+Traub, R. D. et al. A possible role for gap junctions in generation of very fast EEG oscillations preceding the onset of, and perhaps initiating, seizures. Epilepsia 42, 153–170 (2001).
+CAS PubMed Google Scholar 
+DeFelipe, J. Chandelier cells and epilepsy. Brain 122, 1807–1822 (1999).
+Article PubMed Google Scholar 
+Jin, X., Prince, D. A. & Huguenard, J. R. Enhanced excitatory synaptic connectivity in layer V pyramidal neurons of chronically injured epileptogenic neocortex in rats. J. Neurosci. 26, 4891–4900 (2006).
+Article CAS PubMed PubMed Central Google Scholar 
+Bulacio, J. C., Chauvel, P. & McGonigal, A. Stereoelectroencephalography: interpretation. J. Clin. Neurophysiol. 33, 503–210 (2016).
+Article PubMed Google Scholar 
+Couronné, R., Probst, P. & Boulesteix, A. L. Random forest versus logistic regression: a large-scale benchmark experiment. BMC Bioinformatics 19, 270 (2018).
+Article PubMed PubMed Central Google Scholar 
+Sheikh, S. et al. (Re)defining success in epilepsy surgery: the importance of relative seizure reduction in patient-reported quality of life. Epilepsia 60, 2078–2085 (2019).
+Article PubMed Google Scholar 
+Vakharia, V. N. et al. Getting the best outcomes from epilepsy surgery. Ann. Neurol. 83, 676–690 (2018).
+Article PubMed PubMed Central Google Scholar 
+Varatharajah, Y. et al. Integrating artificial intelligence with real-time intracranial EEG monitoring to automate interictal identification of seizure onset zones in focal epilepsy. J. Neural Eng. 15, 046035 (2018).
+Article PubMed PubMed Central Google Scholar 
+Laxer, K. D. et al. The consequences of refractory epilepsy and its treatment. Epilepsy Behav. 37, 59–70 (2014).
+Article PubMed Google Scholar 
+McIntosh, A. M. et al. Long-term seizure outcome and risk factors for recurrence after extratemporal epilepsy surgery. Epilepsia 53, 970–978 (2012).
+Article PubMed Google Scholar 
+Yardi, R. et al. Long-term outcomes of reoperations in epilepsy surgery. Epilepsia 61, 465–478 (2020).
+Article PubMed PubMed Central Google Scholar 
+Jeppesen, J., Beniczky, S., Johansen, P., Sidenius, P. & Fuglsang-Frederiksen, A. Detection of epileptic seizures with a modified heart rate variability algorithm based on Lorenz plot. Seizure 24, 1–7 (2015).
+Article PubMed Google Scholar 
+Chung, J. et al. Statistical connectomics. Preprint at OSF https://doi.org/10.31219/osf.io/ek4n3 (2020).
+Fedele, T. et al. Resection of high frequency oscillations predicts seizure outcome in the individual patient. Sci. Rep. 7, 13836 (2017).
+Article PubMed PubMed Central Google Scholar 
+Haegelen, C. et al. High-frequency oscillations, extent of surgical resection, and surgical outcome in drug-resistant focal epilepsy. Epilepsia 54, 848–857 (2013).
+Article PubMed PubMed Central Google Scholar 
+Cuello-Oderiz, C. et al. Value of ictal and interictal epileptiform discharges and high frequency oscillations for delineating the epileptogenic zone in patients with focal cortical dysplasia. Clin. Neurophysiol. 129, 1311–1319 (2018).
+Article CAS PubMed Google Scholar 
+Höller, Y. et al. High-frequency oscillations in epilepsy and surgical outcome. A meta-analysis. Front. Hum. Neurosci. 9, 574 (2015).
+Article PubMed PubMed Central Google Scholar 
+Spring, A. M. et al. Interrater reliability of visually evaluated high frequency oscillations. Clin. Neurophysiol. 128, 433–441 (2017).
+Article PubMed Google Scholar 
+Höller, P., Trinka, E. & Höller, Y. Electroencephalogram: mission impossible without computational intelligence. Comput. Intell. Neurosci. 2018, 1638097 (2018).
+Article PubMed PubMed Central Google Scholar 
+Gloss, D., Nevitt, S. J. & Staba, R. The role of high-frequency oscillations in epilepsy surgery planning. Cochrane Database Syst. Rev. 10, CD010235 (2017).
+PubMed Google Scholar 
+Chang, W. C. et al. Loss of neuronal network resilience precedes seizures and determines the ictogenic nature of interictal synaptic perturbations. Nat. Neurosci. 21, 1742–1752 (2018).
+Article CAS PubMed Google Scholar 
+Kramer, M. A. & Cash, S. S. Epilepsy as a disorder of cortical network organization. Neuroscientist 18, 360–372 (2012).
+Article PubMed PubMed Central Google Scholar 
+Meador, K. J., Kapur, R., Loring, D. W., Kanner, A. M. & Morrell, M. J. Quality of life and mood in patients with medically intractable epilepsy treated with targeted responsive neurostimulation. Epilepsy Behav. 45, 242–247 (2015).
+Article PubMed Google Scholar 
+Loring, D. W., Kapur, R., Meador, K. J. & Morrell, M. J. Differential neuropsychological outcomes following targeted responsive neurostimulation for partial-onset epilepsy. Epilepsia 56, 1836–1844 (2015).
+Article PubMed Google Scholar 
+D’Andrea Meira, I. et al. Ketogenic diet and epilepsy: what we know so far. Front. Neurosci. 13, 5 (2019).
+Article PubMed PubMed Central Google Scholar 
+Hawasli, A. H., Bandt, S. K., Hogan, R. E., Werner, N. & Leuthardt, E. C. Laser ablation as treatment strategy for medically refractory dominant insular epilepsy: therapeutic and functional considerations. Stereotact. Funct. Neurosurg. 92, 397–404 (2014).
+Article PubMed Google Scholar 
+Gonzalez-Martinez, J. & Lachhwani, D. Stereoelectroencephalography in children with cortical dysplasia: technique and results. Childs Nerv. Syst. 30, 1853–1857 (2014).
+Article PubMed Google Scholar 
+See, S. J. et al. Surgical outcomes in patients with extratemporal epilepsy and subtle or normal magnetic resonance imaging findings. Neurosurgery 73, 68–76 (2013).
+Article PubMed Google Scholar 
+Kemp, B., Värri, A., Rosa, A. C., Nielsen, K. D. & Gade, J. A simple format for exchange of digitized polygraphic recordings. Electroencephalogr. Clin. Neurophysiol. 82, 391–393 (1992).
+Article CAS PubMed Google Scholar 
+Holdgraf, C. et al. iEEG-BIDS, extending the Brain Imaging Data Structure specification to human intracranial electrophysiology. Sci. Data 6, 102 (2019).
+Article PubMed PubMed Central Google Scholar 
+Gorgolewski, K. J. et al. The brain imaging data structure, a format for organizing and describing outputs of neuroimaging experiments. Sci. Data 3, 160044 (2016).
+Article PubMed PubMed Central Google Scholar 
+Gramfort, A. et al. MEG and EEG data analysis with MNE-Python. Front. Neurosci. 7, 267 (2013).
+Article PubMed PubMed Central Google Scholar 
+Gramfort, A. et al. MNE software for processing MEG and EEG data. NeuroImage 86, 446–460 (2014).
+Article PubMed Google Scholar 
+Appelhoff, S. et al. MNE-BIDS: MNE-Python + BIDS = easy dataset interaction. Zenodo https://doi.org/10.5281/zenodo.3891836 (2020).
+Van Der Walt, S., Colbert, S. C. & Varoquaux, G. The NumPy array: a structure for efficient numerical computation. Comput. Sci. Eng. 13, 22–30 (2011).
+Article Google Scholar 
+Virtanen, P. et al. SciPy 1.0: fundamental algorithms for scientific computing in Python. Nat. Methods 17, 261–272 (2020).
+Article CAS PubMed PubMed Central Google Scholar 
+Hunter, J. D. Matplotlib: a 2D graphics environment. Comput. Sci. Eng. 9, 99–104 (2007).
+Article Google Scholar 
+Waskom, M. seaborn: statistical data visualization. J. Open Source Softw. https://doi.org/10.21105/joss.03021 (2021).
+Allen, M., Poggiali, D., Whitaker, K., Marshall, T. R. & Kievit, R. A. Raincloud plots: a multi-platform tool for robust data visualization [version 1; peer review: 2 approved]. Wellcome Open Res. 4, 63 (2019).
+Article PubMed PubMed Central Google Scholar 
+Ho, J., Tumkaya, T., Aryal, S., Choi, H. & Claridge-Chang, A. Moving beyond P values: data analysis with estimation graphics. Nat. Methods 16, 565–566 (2019).
+Article CAS PubMed Google Scholar 
+Vallat, R. Pingouin: statistics in Python. J. Open Source Softw. 3, 1026 (2018).
+Article Google Scholar 
+Raschka, S. MLxtend: providing machine learning and data science utilities and extensions to Python’s scientific computing stack. J. Open Source Softw. 3, 638 (2018).
+Article Google Scholar 
+Pedregosa, F. et al. Scikit-learn: machine learning in Python. J. Mach. Learn. Res. 12, 2825–2830 (2011).
+Google Scholar 
+Mezić, I. Spectral properties of dynamical systems, model reduction and decompositions. Nonlinear Dyn. 41, 309–325 (2005).
+Article Google Scholar 
+Schmid, P. Dynamic mode decomposition of numerical and experimental data. J. Fluid Mech. 656, 5–28 (2010).
+Article CAS Google Scholar 
+Breiman, L. Random forests. Mach. Learn. 45, 5–32 (2001).
+Article Google Scholar 
+Perry, R. et al. Manifold forests: closing the gap on neural networks. Preprint at https://arxiv.org/abs/1909.11799 (2019).
+& Tomita, T. M. et al. Sparse projection oblique randomer forests. J. Mach. Learn. Res. 21, 1–39 (2020).
+Google Scholar 
+Skocik, M., Collins, J., Callahan-Flintoft, C., Bowman, H. & Wyble, B. I tried a bunch of things: the dangers of unexpected overfitting in classification. Preprint at bioRxiv https://doi.org/10.1101/078816 (2016).
+Alyakin, A., Qin, Y. & Priebe, C. E. LqRT: Robust hypothesis testing of location parameters using Lq-Likelihood-Ratio-Type test in Python. Preprint at https://arxiv.org/abs/1911.11922 (2019).
+Qin, Y. & Priebe, C. E. Robust hypothesis testing via Lq-likelihood. Statistica Sinica 27, 1793–1813 (2017).
+Google Scholar 
+Li, A. et al. Neural fragility as an EEG marker of the seizure onset zone. Figshare https://doi.org/10.34747/eagk-r334 (2021).
